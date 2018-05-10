@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=0.6,user-scalable=no">
+<title>常用联系人</title>
+<!-- Bootstrap core CSS -->
+<link href="__EXWX__/style/bootstrap.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]><script src="../../assets/__EXWX__/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.__EXWX__/js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="__EXWX__/style/style.css" rel="stylesheet" type="text/css">
+<link href="__EXWX__/style/style480.css" rel="stylesheet" type="text/css">
+<link href="__EXWX__/style/style320.css" rel="stylesheet" type="text/css">
+
+
+<script src="__EXWX__/js/jquery-1.js"></script>
+<script src="__EXWX__/js/bootstrap.js"></script>
+<script src="__EXWX__/js/jquery.SuperSlide.js"></script>
+<script src="__JS__/jquerytool_1.0v.js"></script>
+
+<body style="background:#F2F2F2;">
+
+<!-- <div class="wxnav">
+<a class="get1" href="__MODULE__/Worklwt/memberInfo"><</a>
+<h2></h2>
+
+<a class="get2" href="__MODULE__/Worklwt/linkManAdd">添加</a>
+</div> -->
+<!--content-->
+<div class="wcenter0">
+ <div class="wcenter01">
+  <div class="lian1"><a class="get2" href="__MODULE__/Worklwt/linkManAdd">+ 添加联系人</a></div>
+ 
+ <div class="wlist0">
+ <foreach name="list" item="vo">
+ 
+   <div class="lian3">
+     <div class="lian31">
+	   <ul>
+	    <li>姓名：{$vo.link_name}</li>
+	    <li>手机号：{$vo.link_tel}</li>
+		<li>身份证号：{$vo.link_num}</li>
+	   </ul>
+	 </div>
+     <div class="lian32">
+	 <button type="button" onclick="delFuns('{$vo.link_id}');">删除当前联系人</button>
+	 
+	 </div>
+   
+   </div>
+
+ </foreach>
+  </div>   
+  <!-- <div class="wlist2"><button type="button">确认</button></div> -->
+ </div>
+</div>
+<script>
+function delFuns(id){
+	if(window.confirm('确认删除？')){
+		$.post("__MODULE__/Worklwt/linkManDel",{id:id},function(data){
+			if(data){
+				$.anewAlert('删除成功',0,1,'__MODULE__/Worklwt/topContacts');
+			}else{
+				$.anewAlert('删除失败');
+			}
+		},'json');
+	}else{
+		return false;
+	}
+	
+}
+
+/* $(".wlist").click(function(){
+
+if($(this).find('span').hasClass('on')){
+
+$(this).find('span').removeClass('on');
+
+}else{
+
+$(this).find('span').addClass('on');
+}
+
+
+}); */
+
+</script>  
+
+<!--content-->
+<!-- 留言框 -->
+<!--footer-->
+
+</body></html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=0.6">
+<title>订单详情</title>
+<!-- Bootstrap core CSS -->
+<link href="__EXWX__/style/bootstrap.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]><script src="../../assets/__EXWX__/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.__EXWX__/js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="__EXWX__/style/style.css" rel="stylesheet" type="text/css">
+<link href="__EXWX__/style/style480.css" rel="stylesheet" type="text/css">
+<link href="__EXWX__/style/style320.css" rel="stylesheet" type="text/css">
+
+<script src="__EXWX__/js/jquery-1.js"></script>
+<script src="__EXWX__/js/bootstrap.js"></script>
+<script src="__EXWX__/js/jquery.SuperSlide.js"></script>
+<script src="__JS__/jquerytool_1.0v.js"></script>
+
+<body style="background:#F6F6F6;">
+
+
+<!--content-->
+<div class="order_body1">
+<div class="order_main">
+
+		<div class="wxdd3 wxdd30">
+			 <div class="du1"><if condition="($info.start_name neq '') and ($info.start_name neq null)"> {$info.start_name}<else />--</if> <img class="eq1" src="__FRONT__/images/ee1.png"><if condition="($info.end_name neq '') and ($info.end_name neq null)"> {$info.end_name}<else />--</if></div>
+		</div>
+   <div class="wxdd3 fvdvs">
+		
+			<div class="wxake1">
+				<h2 class="wxake2"><img src="__CUSTOMER__/images/vl1.png">&nbsp;&nbsp;车辆信息</h2>
+				<div class="wxake3" >
+					<dl><dt>车型：</dt><dd><p><if condition="($info.order_info_type neq '') and ($info.order_info_type neq null)"> {$info.order_info_type}<else />--</if></p></dd></dl>
+					<dl><dt>识别码：</dt><dd><p>{$info.order_info_carmark}</p></dd></dl>
+					
+		
+				<if condition="($info.order_status eq 'Y') OR ($info.order_status eq 'M') OR ($info.order_status eq 'N') OR ($info.order_status eq 'B') OR ($info.order_status eq 'G') OR ($info.order_status eq 'D') OR ($info.order_status eq 'W')">
+				 <div class="xaaxa"><a href="__MODULE__/Worklwt/verifyCar/code/{$info.order_code}"><p><button>查看验车照片</button></p></a></div>
+				</if>
+					
+					
+				</div>
+			</div>
+			<div class="wxake1">
+				<h2 class="wxake2"><img src="__CUSTOMER__/images/vl3.png">&nbsp;&nbsp;发车信息</h2>
+				<div class="wxake3">
+					<dl><dt>发车人：</dt><dd><p>{$info.order_info_tclxr}</p></dd></dl>
+					<dl><dt>提车地址：</dt><dd><p>{$info.order_info_star_address}</p></dd></dl>
+				</div>
+			</div>
+			<div class="wxake1">
+				<h2 class="wxake2"><img src="__CUSTOMER__/images/vl5.png">&nbsp;&nbsp;收车信息</h2>
+				<div class="wxake3">
+					<dl><dt>收车人：</dt><dd><p>{$info.order_info_sclxr}</p></dd></dl>
+					<dl><dt>收车地址：</dt><dd><p>{$info.order_info_end_address}</p></dd></dl>
+				</div>
+			</div>
+			<div class="wxake1">
+				<h2 class="wxake2"><img src="__CUSTOMER__/images/vl8.png">&nbsp;&nbsp;附加服务</h2>
+				<div class="wxake3">
+					<dl><dd> <p>送车上门:{$info.order_smsc_car|default='0'}元</p>
+			   <p>洗车:{$info.car_washing|default='0'}元</p>
+			   <p>合计:{$info.order_info_zj|default='0'}元</p>
+			   <p>优惠券抵扣:{$info.fav_price|default='0'}元</p>
+			   <p></p>
+			   <p>支付金额：{$info.order_info_zj}元</p>
+			   <p>支付方式：<if condition="$info.pay_way eq 'Z'">支付宝
+			   <elseif condition="$info.pay_way eq 'W'" />微信
+			   <else />货到付款
+			   </if>
+			   </p></dd></dl>
+				</div>
+			</div>
+
+
+		</div>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="order_detail">
+    <div class="order_d1">
+
+
+
+
+		<div class="du33">
+			<div class="du33a">
+				<ul>
+					<if condition="($info.order_status eq 'T') OR ($info.order_status eq 'Y') OR ($info.order_status eq 'M') OR ($info.order_status eq 'N') OR ($info.order_status eq 'B') OR ($info.order_status eq 'G') OR ($info.order_status eq 'D') OR ($info.order_status eq 'W')">
+				   	 	<li>
+						     <a href="__MODULE__/PdfPrint/pdf_sqwts/order_code/{$info.order_code}">
+							 <img src="__CUSTOMER__/images/rr5.png">
+							 <p>委托书打印</p>
+							 </a>
+						 </li>
+				   	 <else />
+					   	 <li>
+						     <a href="__MODULE__/PdfPrint/pdf_sqwts/order_code/{$info.order_code}/status/N">
+							 <img src="__CUSTOMER__/images/rr5.png">
+							 <p>委托书打印</p>
+							 </a>
+						 </li>
+				   	 </if>
+				   	 
+				     <if condition="($info.order_status eq 'A') OR ($info.order_status eq 'T') OR ($info.order_status eq 'Y') OR ($info.order_status eq 'M') OR ($info.order_status eq 'N') OR ($info.order_status eq 'B') OR ($info.order_status eq 'G') OR ($info.order_status eq 'D') OR ($info.order_status eq 'W')">
+				     	<li>
+							 <a href="__MODULE__/PdfPrint/pdf_fwhtd/order_code/{$info.order_code}">
+							 <img src="__CUSTOMER__/images/rr6.png">
+							 <p>托运合同打印</p>
+							 </a>
+						 </li>
+				     <else />
+				     	<li>
+							 <a href="__MODULE__/PdfPrint/pdf_fwhtd/order_code/{$info.order_code}/status/N">
+							 <img src="__CUSTOMER__/images/rr6.png">
+							 <p>托运合同打印</p>
+							 </a>
+						 </li>
+				     </if>
+				     
+					 <if condition="$info.policy_code neq null">
+						 <li>
+							 <a href="{$info.policy_code}">
+							 <img src="__CUSTOMER__/images/rr7.png">
+							 <p>保险单下载</p>
+							 </a>
+					 	 </li>
+					 <else />
+						 <li>
+							 <a href="javascript:;">
+							 <img src="__CUSTOMER__/images/rr7.png">
+							 <p>保险单下载</p>
+							 </a>
+						 </li>
+					 </if>
+				</ul>
+			</div>
+		</div>
+	<!-- <div class="wlist2"><button type="button">确认</button></div> -->
+  </div>
+  </div>
+</div>
+ </div>
+
+
+<!--content-->
+  
+<!--footer-->
+
+</body></html>

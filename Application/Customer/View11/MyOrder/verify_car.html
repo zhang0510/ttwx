@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=0.6">
+<title>验车详情</title>
+<!-- Bootstrap core CSS -->
+<link href="__EXWX__/style/bootstrap.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]><script src="../../assets/__EXWX__/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.__EXWX__/js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="__EXWX__/style/style.css" rel="stylesheet" type="text/css">
+<link href="__EXWX__/style/style480.css" rel="stylesheet" type="text/css">
+<link href="__EXWX__/style/style320.css" rel="stylesheet" type="text/css">
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="__EXWX__/js/jquery-1.js"></script>
+<script src="__EXWX__/js/bootstrap.js"></script>
+
+
+<body>
+
+
+<!--content-->
+<div class="order_body1">
+	<div class="order_main">
+		<div class="order_h2"><h2><img src="__CUSTOMER__/images/vl1.png">&nbsp;&nbsp;验车详情</h2></div>
+		<div class="order_navc">
+			<ul>
+				<li class="on">车钥匙：{$ret.verify_car_keys}把</li>
+				<li>车辆当前公里数：{$ret.verify_km}</li>
+				<li>提车预计行驶公里数：{$ret.verify_km}</li>
+			</ul>
+		</div>
+			<div class="order_navc">
+			<ul>
+				<li class="on">行李工具备注：{$ret.verify_xingli}</li>
+				<li>车身外观：{$ret.verify_car_wai}</li>
+				<li>备注：{$ret.verify_bei}</li>
+			</ul>
+		</div>
+
+			<div class="order_h2"><h2><img src="__CUSTOMER__/images/vl9.png">&nbsp;&nbsp;拍照验车</h2></div>
+					<div class="yyu1">
+						<ul>
+							<foreach name="ret.imgs" item="vo">
+								<li>
+									<div class="xxz4"><img  src="{$vo.verify_img_upload}"/></div>
+								</li>
+							</foreach>
+						</ul>
+					</div>
+	
+	</div>
+</div>
+<!--content-->
+
+</body></html>

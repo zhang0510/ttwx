@@ -1,0 +1,4 @@
+*.log
+Application/Customer/Conf/config.php
+Application/Runtime/
+.idea/

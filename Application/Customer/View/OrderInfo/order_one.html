@@ -1,0 +1,384 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.6,user-scalable=no"/>
+<title>价格查询</title>
+<!-- Bootstrap core CSS -->
+<link href="__CUSTOMER__/style/bootstrap.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="__CUSTOMER__/style/style.css" rel="stylesheet" type="text/css"/>
+<link href="__CUSTOMER__/style/style480.css" rel="stylesheet" type="text/css"/>
+<link href="__CUSTOMER__/style/style320.css" rel="stylesheet" type="text/css"/>
+
+
+<script src="__CUSTOMER__/js/jquery-1.js"></script>
+<script src="__CUSTOMER__/js/bootstrap.js"></script>
+<script src="__CUSTOMER__/js/jquery.SuperSlide.js"></script>
+<script src="__JS__/jquerytool_1.0v.js"></script>
+<script src="__JS__/layer/layer.js"></script>
+<script src="__JS__/indexTuo.js"></script>
+</head>
+<body>
+
+<!--content-->
+<div class="wcenter0">
+ <div class="wcenter01">
+   <div class="bang">
+<img src="__CUSTOMER__/images/we3.jpg"/>
+
+   </div>
+   <div class="bin3">
+   
+   <div class="bin1a">
+	<dl>
+		<dt class="bjk1">出发地 &nbsp;</dt>
+		<dd id="gan1"><input type="text" value="" id="chufadiname" readonly="readonly"/><a class="gan1"></a></dd>
+	</dl>
+	</div>
+    <div class="bin1a">
+	<dl>
+		<dt class="bjk2">目的地 &nbsp;</dt>
+		<dd id="gan11"><input type="text" value="" id="mudidiname" readonly="readonly"/><a class="gan1 gan11"></a></dd>
+	</dl>
+	</div>
+    <div class="bin1a">
+	<dl><dt class="bjk3">品牌车型 &nbsp;</dt><dd id="gan111"><input type="text" value="" readonly="readonly" id="pinpainame" /><a class="gan1 gan111" ></a></dd></dl>
+	<input type="hidden" class="txt1a inko" id="type_cityarea_id"/>
+	</div>
+	<div class="mn1">费用：￥<span id="ttotla">0</span></div>
+	
+   	<div class="wxdd1">
+		
+		<button type="button" class="wxdd2" onclick="return orderNext();">确定下单</button>
+	</div>
+	<div class="wxdd11">
+	<button type="button" class="" onclick="clearAll();">重置</button>
+	 </div>
+ </div>
+ </div>
+</div>
+  <!-- <div class="wlist2"><button type="button" onclick="return orderNext();">确定下单</button></div> -->
+<script>
+$(".sex1").click(function(){
+
+	$(this).children('span').addClass('on');
+	$(this).siblings().children('span').removeClass('on');
+
+});
+
+$("#gan1").click(function(){
+	$("#signmark").val("S");
+	$("#mudidi_id").hide();
+	$("#pinpai_id").hide();
+	$(".area22").html('');
+	$(".area23").find('ul').html('');
+	$("#chufadi_id").show();
+	$(".area0,.bg1").show();
+});
+$("#gan11").click(function(){
+	$("#signmark").val("E");
+	var chufa = $("#chufa").val();
+	if(chufa == ''){
+		layer.msg("请选择出发地");
+		return false;
+	}
+	$("#chufadi_id").hide();
+	$("#pinpai_id").hide();
+	$(".area22").html('');
+	$(".area23").find('ul').html('');
+	$("#mudidi_id").show();
+	$(".area0,.bg1").show();
+});
+
+$("#gan111").click(function(){
+	$("#signmark").val("M");
+	$("#chufadi_id").hide();
+	$("#mudidi_id").hide();
+	$(".area22").html('');
+	$(".area23").find('ul').html('');
+	$("#pinpai_id").show();
+	$(".area0,.bg1").show();
+});
+function closediv(){
+	var signmark = $("#signmark").val();
+	if(signmark == "S"){
+		$("#chufa").val("");
+		$("#chufa_name").val("");
+		$("#chufadiname").val("");
+	}else if(signmark == "E"){
+		$("#mudi").val("");
+		$("#mudi_name").val("");
+		$("#mudidiname").val("");
+	}else if(signmark == "M"){
+		$("#pinpai").val("");
+		$("#pinpai_name").val("");
+		$("#pinpainame").val("");
+	}
+	$(".area0,.bg1").hide();
+	$(".area22").html('');
+	$(".area23").find('ul').html('');
+}
+</script>  
+
+<div id="bg0" class="bg1"></div>
+<div id="area0" class="area0">
+   <div class="area1"><h2>请选择<a onclick="closediv();">X</a></h2></div>
+   <div class="area2">
+     <div class="area21">
+	 
+	 <ul id="chufadi_id" style="display: none;">	
+		 <foreach name="pro" item="vo">
+			<li data-id="1" onclick="getCityz('{$vo.area_id}','S','{$vo.area_name}')">{$vo.area_name}</li>
+		 </foreach>
+	 </ul>
+	 
+	 <ul id="mudidi_id" style="display: none;">	
+		 <foreach name="pro" item="vo">
+			<li data-id="1" onclick="getCityz('{$vo.area_id}','E','{$vo.area_name}')">{$vo.area_name}</li>
+		 </foreach>
+	 </ul>
+	 
+	 <ul id="pinpai_id" style="display: none;">	
+		 <foreach name="brand" item="vo">
+			<li data-id="1" onclick="getCityz('{$vo.cxjj_id}','M','{$vo.cxjj_brand}')">{$vo.cxjj_brand}</li>
+		 </foreach>
+	 </ul>
+	 </div>
+     
+	  <div class="area22">
+	  		
+	  </div>
+	  <div class="area23">
+		  <ul>	
+		  </ul>
+	  </div>
+   </div>
+   <form action="__MODULE__/OrderBook/mobileOrderTwo" method="post" id="formSubmit">
+   <input type="hidden" name="chufa" id="chufa"/>
+   <input type="hidden" name="chufa_name" id="chufa_name"/>
+   <input type="hidden" name="mudi" id="mudi"/>
+   <input type="hidden" name="mudi_name" id="mudi_name"/>
+   <input type="hidden" name="pinpai" id="pinpai"/>
+   <input type="hidden" name="pinpai_name" id="pinpai_name"/>
+    <!-- 运费 -->
+	<input type="hidden" name="lineprice" id="lineprice" value="0" />
+	<!-- 类型 -->
+	<input type="hidden" name="product_type" id="product_type" value="0" />
+	<!-- 总费 -->
+	<input type="hidden" name="totalz" id="totalz" value="0" />
+	<!-- 提车费 -->
+	<input type="hidden" name="tiz" id="tiz" value="0" />
+	<!-- 送车费 -->
+	<input type="hidden" name="songz" id="songz" value="0" />
+	<!-- 毛利 -->
+	<input type="hidden" name="maoliz" id="maoliz" value="0" />
+	 <input type="hidden" name="flag" id="flag" value="N" />
+   </form>
+  
+   <input type="hidden" name="signmark" id="signmark" value="" />
+   <input type="hidden" name="msg" id="msg" value="请完善信息" />
+ <!-- <div class="area3"><button type="button" onclick="orderNext();">确定</button></div> -->
+
+</div>
+<script>
+//下单第二步
+function orderNext(){
+	var chufadiname = $("#chufa").val();//出发地
+	var chufa_name = $("#chufa_name").val();//出发地名称
+	var mudidiname = $("#mudi").val();//目的地
+	var mudi_name = $("#mudi_name").val();//目的名称
+	var carid = $("#pinpai").val();
+	var flag = $("#flag").val();
+	if(chufadiname.trim()==""){
+		layer.msg("出发地不能为空!");
+		return  false;
+	}
+	if(mudidiname.trim()==""){
+		layer.msg("目的地不能为空!");
+		return  false;
+	}
+	if(carid.trim()==""){
+		layer.msg("请选择车辆信息!");
+		return  false;
+	}
+	/* if(flag == "N"){
+		layer.msg($("#msg").val());
+		return  false;
+	} */
+	//var cartype = $("input[name='cartype_code']");
+	//var size = cartype.size();
+	$("#formSubmit").submit();
+	/* $.post('__MODULE__/OrderBook/mobileOrderNet',{
+		chufadiname:chufadiname,
+		mudidiname:mudidiname,
+		pinpai:str,
+		chufa_name:chufa_name,
+		mudi_name:mudi_name
+		},function(data){
+		if(data){
+			window.location.href="__MODULE__/OrderBook/mobileOrderTwo";
+		}
+	}); */
+	
+}
+
+//获取市
+function getCityz(pid,sign,name){
+	$("#signmark").val(sign);
+	if(sign=="S"){
+		$("#chufa").val('');
+		$("#chufa").val(pid);
+		$("#chufa_name").val('');
+		$("#chufa_name").val(name);
+	}else if(sign=="E"){
+		var chufa = $("#chufa").val();
+		if(chufa == ''){
+			layer.msg("请选择出发地");
+			return false;
+		}
+		$("#mudi").val('');
+		$("#mudi").val(pid);
+		$("#mudi_name").val('');
+		$("#mudi_name").val(name);
+	}else{
+		$("#pinpai").val('');
+		$("#pinpai").val(pid);
+		$("#pinpai_name").val('');
+		$("#pinpai_name").val(name);
+	}
+	if(sign=='M'){
+		$.post('__MODULE__/OrderBook/getType',{'pid':pid},function(data){
+			var num = data.length;
+			var str = '';
+			for(var i=0;i<num;i++){
+				if(sign=='M'){
+					str += '<li onclick="closeFz(\''+data[i]['cxjj_id']+'\',\'M\',\''+data[i]['cxjj_brand']+'\');">'+data[i]['cxjj_brand']+'</li>';
+				}
+			}
+			$(".area22").html('');//.find('ul')
+			$(".area22").html('<ul>'+str+'</ul><div style="height:1000px;"></div>');
+			$(".area22").show();
+		});
+	}else{
+		$.post('__MODULE__/OrderBook/getCity',{'pid':pid},function(data){
+			var num = data.length;
+			var str = '';
+			for(var i=0;i<num;i++){
+				if(sign=='S'){
+					str += '<li onclick="getBlockz(\''+data[i]['area_id']+'\',\'S\',\''+data[i]['area_name']+'\');">'+data[i]['area_name']+'</li>';
+				}else if(sign=='E'){
+					str += '<li onclick="closeFz(\''+data[i]['area_id']+'\',\'E\',\''+data[i]['area_name']+'\');">'+data[i]['area_name']+'</li>';
+				}
+			}
+			$(".area22").show();
+			$(".area22").html('');//.find('ul')
+			$(".area22").html('<ul>'+str+'</ul><div style="height:1000px;"></div>');
+			//layer.msg($(".area22").html());
+			
+		});
+	}
+}
+//获取区
+function getBlockz(pid,sign,name){
+		if(sign=="S"){
+			var chufa = $("#chufa").val();
+			$("#chufa").val('');
+			$("#chufa").val(chufa+','+pid);
+			var chufa_name = $("#chufa_name").val();
+			$("#chufa_name").val('');
+			$("#chufa_name").val(chufa_name+'-'+name);
+		}else{
+			var chufa = $("#mudi").val();
+			$("#mudi").val('');
+			$("#mudi").val(chufa+','+pid);
+			var chufa_name = $("#mudi_name").val();
+			$("#mudi_name").val('');
+			$("#mudi_name").val(chufa_name+'-'+name);
+		}
+		$.post('__MODULE__/OrderBook/getBlock',{'pid':pid},function(data){
+			var num = data.length;
+			var str = '';
+			for(var i=0;i<num;i++){
+				if(sign=='S'){
+					str += '<li onclick="closeFz(\''+data[i]['area_id']+'\',\'S\',\''+data[i]['area_name']+'\');">'+data[i]['area_name']+'</li>';
+				}
+			}
+			$(".area23").find('ul').html('');
+			$(".area23").find('ul').append(str);
+			$(".area23").show();
+		});
+	}
+//城市区域处理
+function closeFz(pid,sign,name){
+	$(".area0,.bg1").hide();
+	if(sign=="S"){
+		var chufa = $("#chufa").val();
+		$("#chufa").val('');
+		$("#chufa").val(chufa+','+pid);
+		var chufa_name = $("#chufa_name").val();
+		$("#chufa_name").val('');
+		$("#chufa_name").val(chufa_name+'-'+name);
+		
+		$("#chufadiname").val(chufa_name+'-'+name);
+		$(".area0,.bg1").hide();
+		$(".area23").find('ul').html('');
+		$(".area22").html('');
+		
+	}else if(sign=="E"){
+		var pinpai = $("#mudi").val();
+		$("#mudi").val('');
+		$("#mudi").val(pinpai+','+pid);
+		var mudi_name = $("#mudi_name").val();
+		$("#mudi_name").val(mudi_name+'-'+name);
+		$("#mudidiname").val(mudi_name+'-'+name);
+		$(".area0,.bg1").hide();
+		$(".area23").find('ul').html('');
+		$(".area22").html('');
+	}else{
+		var pinpai = $("#pinpai").val();
+		$("#pinpai").val('');
+		$("#pinpai").val(pid);
+		var pinpai_name = $("#pinpai_name").val();
+		$("#pinpai_name").val('');
+		$("#pinpai_name").val(pinpai_name+'-'+name);
+		$("#pinpainame").val(pinpai_name+'-'+name);
+		$(".area0,.bg1").hide();
+		$(".area23").find('ul').html('');
+		$(".area22").html('');
+	}
+	var chufas = $("#chufa").val();
+	var mudi = $("#mudi").val();
+	var pinpai = $("#pinpai").val();
+	if(mudi !="" && pinpai!=""){
+		getLine(chufas,mudi,pinpai);
+	}
+	
+}
+
+
+$(".area21 li").click(function(){
+	$(".area22").show();
+});
+$(".area22 li").click(function(){
+	$(".area23").show();
+});
+$(".area3").click(function(){
+	$(".area22").hide();
+	$(".area23").hide();
+
+	$(".bg1").hide();
+	$(".area0").hide();
+});
+
+
+
+</script>
+</body></html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=0.6">
+<title>妥妥运车</title>
+<!-- Bootstrap core CSS -->
+<link href="__EXWX__/style/bootstrap.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]><script src="../../assets/__EXWX__/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.__EXWX__/js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="__EXWX__/style/style.css" rel="stylesheet" type="text/css">
+<link href="__EXWX__/style/style480.css" rel="stylesheet" type="text/css">
+<link href="__EXWX__/style/style320.css" rel="stylesheet" type="text/css">
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="__EXWX__/js/jquery-1.js"></script>
+<script src="__EXWX__/js/bootstrap.js"></script>
+<body>
+<!--content-->
+<div class="order_body1">
+<div class="order_main container">
+  <div class="order_h2"><h2>订单详情</h2></div>
+<div class="order_navc">
+   <ul>
+    <li class="on">车钥匙：{$transfer.t_Info.verify_car_keys}把</li>
+    <li>备胎：{$transfer.t_Info.verify_spare_tire}个</li>
+	<li>工具包：{$transfer.t_Info.verify_tool_kit}个</li>
+	<li>千斤顶：{$transfer.t_Info.verify_lifting_jack}个</li>
+	<li>脚垫：{$transfer.t_Info.verify_door_mat}个</li>
+   <li>公里数：{$transfer.t_Info.verify_km}Km</li>
+       <li>说明书：{$transfer.t_Info.verify_instructions}本</li>
+	<li>警示牌：{$transfer.t_Info.verify_warning_sign}个</li>
+	<li>点烟器：{$transfer.t_Info.verify_lighter}个</li>
+	<li>灭火器：{$transfer.t_Info.verify_fire_extinguisher}个</li>
+   </ul>
+
+
+
+  </div>
+<if condition="$transfer.img_count neq '0'">
+	  <div class="order_h2"><h2>车辆外观</h2></div>
+		<div class="see1">
+	<if condition="$transfer['t_Img'][0]['verify_img_upload'] neq ''">
+	   <div class="col-sm-6 col-md-6 see0">
+		  <div class="seea">
+			  <div class="seea1"><img src="{$transfer.t_Img.0.verify_img_upload}"></div>
+			 <div class="seea2">
+			   <h2>车头、引擎盖</h2>
+			  <h3>编号：{$transfer.t_Img.0.verify_code}</h3>
+			  <p>描述：{$transfer.t_Img.0.verify_img_describe}</p>
+			 </div>
+		  </div>
+		</div>
+	</if>
+	<if condition="$transfer['t_Img'][1]['verify_img_upload'] neq ''">
+	   <div class="col-sm-6 col-md-6 see0">
+		  <div class="seea">
+			  <div class="seea1"><img src="{$transfer.t_Img.1.verify_img_upload}"></div>
+			 <div class="seea2">
+			   <h2>车辆左侧</h2>
+			  <h3>编号：{$transfer.t_Img.1.verify_code}</h3>
+			  <p>描述：{$transfer.t_Img.1.verify_img_describe}</p>
+			 </div>
+		  </div>
+		</div>
+	</if>
+	<if condition="$transfer['t_Img'][2]['verify_img_upload'] neq ''">
+		   <div class="col-sm-6 col-md-6 see0">
+		  <div class="seea">
+			  <div class="seea1"><img src="{$transfer.t_Img.2.verify_img_upload}"></div>
+			 <div class="seea2">
+			   <h2>车辆右侧</h2>
+			  <h3>编号：{$transfer.t_Img.2.verify_code}</h3>
+			  <p>描述：{$transfer.t_Img.2.verify_img_describe}</p>
+			 </div>
+		  </div>
+		</div>
+	</if>
+	<if condition="$transfer['t_Img'][3]['verify_img_upload'] neq ''">
+		   <div class="col-sm-6 col-md-6 see0">
+		  <div class="seea">
+			  <div class="seea1"><img src="{$transfer.t_Img.3.verify_img_upload}"></div>
+			 <div class="seea2">
+			   <h2>车顶</h2>
+			  <h3>编号：{$transfer.t_Img.3.verify_code}</h3>
+			  <p>描述：{$transfer.t_Img.3.verify_img_describe}</p>
+			 </div>
+		  </div>
+		</div>
+	</if>
+	<if condition="$transfer['t_Img'][4]['verify_img_upload'] neq ''">
+		   <div class="col-sm-6 col-md-6 see0">
+		  <div class="seea">
+			  <div class="seea1"><img src="{$transfer.t_Img.4.verify_img_upload}"></div>
+			 <div class="seea2">
+			   <h2>车尾、备箱盖</h2>
+			  <h3>编号：{$transfer.t_Img.4.verify_code}</h3>
+			  <p>描述：{$transfer.t_Img.4.verify_img_describe}</p>
+			 </div>
+		  </div>
+		</div>
+	  </div>
+	</if>
+<else/>
+		<div class="order_h2"><h2>车辆外观：暂无信息</h2></div>
+	
+</if>
+
+<if condition="$transfer.img_count neq '0'">
+    <div class="order_h2"><h2>车内行李</h2></div>
+ <div class="see1">
+	<if condition="$transfer['t_Img'][5]['verify_img_upload'] neq ''">
+	   <div class="col-sm-6 col-md-6 see0">
+		  <div class="seea">
+			  <div class="seea1"><img src="{$transfer.t_Img.5.verify_img_upload}"></div>
+			 <div class="seea2">
+			   <h2>车内行李</h2>
+			  <h3>编号：{$transfer.t_Img.5.verify_code}</h3>
+			  <p>描述：{$transfer.t_Img.5.verify_img_describe}</p>
+			 </div>
+		  </div>
+		</div>
+	</if>
+	<if condition="$transfer['t_Img'][6]['verify_img_upload'] neq ''">
+	   <div class="col-sm-6 col-md-6 see0">
+		  <div class="seea">
+			  <div class="seea1"><img src="{$transfer.t_Img.6.verify_img_upload}"></div>
+			 <div class="seea2">
+			   <h2>后备箱</h2>
+			  <h3>编号：{$transfer.t_Img.6.verify_code}</h3>
+			  <p>描述：{$transfer.t_Img.6.verify_img_describe}</p>
+			 </div>
+		  </div>
+		</div>
+	</if>
+	<if condition="$transfer['t_Img'][7]['verify_img_upload'] neq ''">
+		<foreach name="transfer['t_Img']['guaca']" item="vo">
+	   <div class="col-sm-6 col-md-6 see0">
+		  <div class="seea">
+			  <div class="seea1"><img src="{$vo}"></div>
+			 <div class="seea2">
+			   <h2>刮擦部位</h2>
+			  <h3>编号：{$transfer.t_Img.7.verify_code}</h3>
+			  <p>描述：{$transfer.t_Img.7.verify_img_describe}</p>
+			 </div>
+		  </div>
+		</div>
+		</foreach>
+	</if>
+<else/>
+	<div class="order_h2"><h2>车内行李：暂无信息</h2></div>
+</if>
+  </div>
+
+
+
+
+
+
+
+
+
+</div>
+ </div>
+
+
+<!--content-->
+</body></html>

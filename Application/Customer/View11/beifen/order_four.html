@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.6"/>
+<title>妥妥运车</title>
+<!-- Bootstrap core CSS -->
+<link href="__CUSTOMER__/style/bootstrap.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="__CUSTOMER__/style/style.css" rel="stylesheet" type="text/css"/>
+
+<link href="__CUSTOMER__/style/style480.css" rel="stylesheet" type="text/css"/>
+<link href="__CUSTOMER__/style/style320.css" rel="stylesheet" type="text/css"/>
+
+
+<script src="__CUSTOMER__/js/jquery-1.js"></script>
+<script src="__CUSTOMER__/js/bootstrap.js"></script>
+<script type="text/javascript">
+function groupOrder(){
+	var payway = $("#payWay_ID").val();
+	var token = $("#token_code").val();
+	window.location.href="__MODULE__/GroupBuy/groupOrder/payway/"+payway+"/token/"+token;
+}
+function payway(obj){
+	var payway = $(obj).find("input").val();
+	$("#payWay_ID").val(payway);
+}
+$(".inko").click(function(){
+	  $(this).siblings(".selected").show();
+	  
+	  });
+	   $(".selected li").click(function(){
+	  $(this).parent().parent().hide();
+	   var oop= $(this).html();
+	  $(this).parent().parent().siblings('.inko').val(oop); 
+	   
+	  });
+	    $(".du339a ul li").click(function(){
+
+	  $(this).addClass('on').siblings().removeClass('on'); 
+	   
+	  });
+</script>
+</head>
+<body>
+<div class="order_body1">
+<div class="order_main container">
+  <div class="order_detail">
+    <div class="order_d1">
+	  <div class="du32">
+	  <!--  <p>积分抵扣：￥0元</p> -->
+	   <p>奖券抵扣：￥{$youhui|default="0"}元</p>
+	   <p>运输价格（含提车费）：￥{$yuanjia|default="0"}元</p>
+	   <p>保险费用：￥{$baoxian|default="0"}元</p>
+	   <p>优  惠  券：￥{$youhui|default="0"}元</p>
+	   <p>团购优惠：￥{$tuangouyouhui|default="0"}元</p>
+	   <p>送车价格：￥{$songcheshangmen|default="0"}元</p>
+	  <p class="on">共计：<span><b>￥<em>{$platelets|default="0"}</em>元</b></span></p>
+	  </div>
+	  <div class="du339">
+	    <div class="du339a">
+	   <ul>
+	     <li class="on">
+		 <label onclick="payway(this);">
+		 	<img src="__CUSTOMER__/images/zf1.png"/>
+		 	<p>支付宝</p>
+		 	<input value="Z" type="radio" name="pay"/>
+		 <label>
+		 </li>
+		   <li>
+		 <label><img src="__CUSTOMER__/images/zf2.png"/>
+		 <p>微信</p>
+		 <input value="W" type="radio" name="pay"/>
+		 <label>
+		 </li>
+		   <li>
+		 <label><img src="__CUSTOMER__/images/zf3.png"/>
+		 <p>货到付款</p>
+		 <input value="H" type="radio" name="pay"/>
+		 <label>
+		 </li>
+	   
+	   </ul>
+	 
+	  </div>
+	 <div class="du339b">
+	  <input type="hidden" name="payWay" id="payWay_ID" value="Z"/>
+	  <input type="hidden" name="token_code" id="token_code" value="{$token}"/>
+	  <button type="button" onclick="groupOrder();">确定付款</button>
+	 
+	  </div>
+	  </div>
+  </div>
+  
+  </div>
+
+</div>
+ </div>
+		
+</body>
+</html>

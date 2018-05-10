@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=0.6">
+<title>妥妥运车</title>
+<!-- Bootstrap core CSS -->
+<link href="style/bootstrap.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="style/style.css" rel="stylesheet" type="text/css">
+
+<link href="style/style480.css" rel="stylesheet" type="text/css">
+<link href="style/style320.css" rel="stylesheet" type="text/css">
+<link href="style/animate.min.css" rel="stylesheet" type="text/css">
+
+<script src="js/jquery-1.js"></script>
+<script src="js/bootstrap.js"></script>
+
+
+
+<body>
+<div class="wxnav">
+<a class="get1" href="javascript:;" onclick="WeixinJSBridge.call('closeWindow');"><</a>
+<h2>常见问题</h2>
+
+</div>
+
+
+
+<!--content-->
+<div  class="ques0">
+   <div  class="ques1">
+    <h2>装卸车辆时车主需要在现场吗？</h2>
+     <p>不需要，我们有专业工作人员装车，每人每天的装车数量
+都在几十辆，如车主在现场看装车可能要等很久，如果车
+主愿意，我们热烈欢迎。</p>
+   
+   </div>
+   <div  class="ques1">
+    <h2>车辆托运过程中出现损伤车主怎么办？</h2>
+     <p>作为中国轿车托运第一服务商，广运天下将尽全力为您提
+供服务。对于意外出现的损伤，广运天下提醒，如果您在
+办理接车手续时发现车辆有损伤，请第一时间联系您的专
+线客服，他将帮助您解决问题，直到服务满意为止。</p>
+   
+   </div>
+      <div  class="ques1">
+    <h2>什么是门到门服务？</h2>
+     <p>指广运服务人员上门提车和送车上门。但由于车辆开入狭
+小路段比较困难导致转弯掉头比较费劲，司机会尽可能地
+接近您的预定点来进行装卸。</p>
+   
+   </div>
+      <div  class="ques1">
+    <h2>自托运协议签订后，我司什么时间安排启运
+车主车辆？</h2>
+     <p>我司规定是在轿车托运合同建立的3天内必须装车启运，
+不过通常情况下都是当天就能启运。</p>
+   
+   </div>
+      <div  class="ques1">
+    <h2>运输将会持续多长时间？</h2>
+     <p>运输时间主要看启运地点和到达地点的距离。例如，从北
+京发往广州一般需要约3天时间，而从北京发往乌鲁木齐
+则需要约一周的时间，我司正在打造更高效的物流平台，
+时间将会更短。</p>
+   
+   </div>
+
+  </div>
+
+<!--content-->
+
+
+  <script>
+  $(".inko").click(function(){
+  $(this).siblings(".selected").show();
+  
+  });
+   $(".selected li").click(function(){
+  $(this).parent().parent().hide();
+   var oop= $(this).html();
+  $(this).parent().parent().siblings('.inko').val(oop); 
+   
+  });
+    $(".du339a ul li").click(function(){
+
+  $(this).addClass('on').siblings().removeClass('on'); 
+   
+  });
+  
+
+  </script>
+<!--footer-->
+
+</body></html>

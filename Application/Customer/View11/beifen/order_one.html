@@ -1,0 +1,380 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.6,user-scalable=no"/>
+<title>妥妥运车</title>
+<!-- Bootstrap core CSS -->
+<link href="__CUSTOMER__/style/bootstrap.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="__CUSTOMER__/style/style.css" rel="stylesheet" type="text/css"/>
+<link href="__CUSTOMER__/style/style480.css" rel="stylesheet" type="text/css"/>
+<link href="__CUSTOMER__/style/style320.css" rel="stylesheet" type="text/css"/>
+
+
+<script src="__CUSTOMER__/js/jquery-1.js"></script>
+<script src="__CUSTOMER__/js/bootstrap.js"></script>
+<script src="__CUSTOMER__/js/jquery.SuperSlide.js"></script>
+<script src="__JS__/jquerytool_1.0v.js"></script>
+</head>
+<body>
+
+<div class="wxnav">
+<a class="get1" href="javascript:;"><</a>
+<h2>我要下单</h2>
+
+</div>
+<!--content-->
+<div class="wcenter0">
+ <div class="wcenter01">
+   <div class="bang">
+<img src="__CUSTOMER__/images/we3.jpg"/>
+
+   </div>
+   <div class="bin3">
+   
+   <div class="bin1a">
+	<dl>
+		<dt class="bjk1">出发地</dt>
+		<dd><input type="text" value="" id="chufadiname"/><a class="gan1" id="gan1"></a></dd>
+	</dl>
+	</div>
+    <div class="bin1a">
+	<dl>
+		<dt class="bjk2">目的地</dt>
+		<dd><input type="text" value="" id="mudidiname" /><a class="gan1 gan11" id="gan11"></a></dd>
+	</dl>
+	</div>
+    <div class="bin1a">
+	<dl><dt class="bjk3">品牌车型</dt><dd><input type="text" value="" readonly="readonly" id="pinpainame" onclick="typeProvineFun();"/><a class="gan1 gan111" id="gan111"></a></dd></dl>
+	<input type="hidden" class="txt1a inko" id="type_cityarea_id"/>
+	</div>
+   
+    <div class="bin1a">
+	<div class="lmc0">
+	 <div class="lmc">
+	 	 <input type="hidden" value="1" id="nums_id"/>
+		 <a class="jian"  onclick="jian();"><img src="__CUSTOMER__/images/jian1.jpg"/></a>
+		 <input type="text" readonly="" value="1" class="lm1a" id="num_id_input"/>
+		 <a class="jia" onclick="jia();"><img src="__CUSTOMER__/images/jia1.jpg"/></a>
+	 </div>
+	 <button type="button" class="lm1b" onclick="carTypeAdd();">加入车型列表</button>
+	 </div>
+	</div>
+   
+    <div class="bin1b">
+	 <h2>车型列表</h2>
+	 <ul id="carNum_div_id">
+	  
+	 
+	 </ul>
+	</div>
+  
+
+
+ </div>
+ </div>
+</div>
+  <div class="wlist2"><button type="button" onclick="return orderNext();">确定下单</button></div>
+<script>
+$(".sex1").click(function(){
+
+	$(this).children('span').addClass('on');
+	$(this).siblings().children('span').removeClass('on');
+
+});
+
+//---------------------车型添加START-------------------------------
+//添加品牌车型
+function carTypeAdd(){
+	var numinput = $("#num_id_input").val();//车辆数
+	var nums_id = $("#nums_id").val();//最少车辆数
+	
+	var cartype = $("#pinpainame").val().trim();//车型 
+	var cartypeid = $("#pinpai").val();//车型编号
+	if(cartype!=""){
+		var arr = cartype.split("-");  
+		var html = '<li><b>'+arr[0]+' '+arr[1]+'</b><b onclick="del_b(this);">X</b><span>'+numinput+'辆</span><input type="hidden" value="'+cartypeid+','+numinput+'" name="cartype_code"/></li>';
+		$("#carNum_div_id").append(html);
+		$("#pinpainame").val("");
+		$("#num_id_input").val(nums_id);//还原车辆数初始值
+	}
+}
+//删除品牌车型
+function del_b(obj){
+	$(obj).parent("li").remove();
+}
+//---------------------车型添加END-------------------------------
+//---------------------车型车辆变动START--------------------------------
+
+//++
+function jian(){
+	var pinpainame = $("#pinpainame").val();
+	if(pinpainame.trim()==""){
+		alert("请选择品牌-车系!");
+		return false;
+	}
+	var nums_id = parseInt($("#nums_id").val().trim()==""?1:$("#nums_id").val().trim());
+	var num_input = parseInt($("#num_id_input").val().trim()==""?0:$("#num_id_input").val().trim());
+	if(num_input > nums_id){
+		num_input--;
+		$("#num_id_input").val(num_input);
+	}
+}
+//--
+function jia(){
+	var pinpainame = $("#pinpainame").val();
+	if(pinpainame.trim()==""){
+		alert("请选择品牌-车系!");
+		return false;
+	}
+	var num_input = parseInt($("#num_id_input").val().trim()==""?0:$("#num_id_input").val());
+	num_input++;
+	$("#num_id_input").val(num_input);
+	
+}
+//---------------------车型车辆变动END-------------------------------
+$("#gan1").click(function(){
+	$("#mudidi_id").hide();
+	$("#pinpai_id").hide();
+	$("#chufadi_id").show();
+	$(".area0,.bg1").show();
+});
+$("#gan11").click(function(){
+	$("#chufadi_id").hide();
+	$("#pinpai_id").hide();
+	$("#mudidi_id").show();
+	$(".area0,.bg1").show();
+});
+
+$("#gan111").click(function(){
+	$("#chufadi_id").hide();
+	$("#mudidi_id").hide();
+	$("#pinpai_id").show();
+	$(".area0,.bg1").show();
+});
+</script>  
+
+<div id="bg0" class="bg1"></div>
+<div id="area0" class="area0">
+   <div class="area1"><h2>请选择省-市-区</h2></div>
+   <div class="area2">
+     <div class="area21">
+	 
+	 <ul id="chufadi_id" style="display: none;">	
+		 <foreach name="pro" item="vo">
+			<li data-id="1" onclick="getCityz('{$vo.area_id}','S','{$vo.area_name}')">{$vo.area_name}</li>
+		 </foreach>
+	 </ul>
+	 
+	 <ul id="mudidi_id" style="display: none;">	
+		 <foreach name="pro" item="vo">
+			<li data-id="1" onclick="getCityz('{$vo.area_id}','E','{$vo.area_name}')">{$vo.area_name}</li>
+		 </foreach>
+	 </ul>
+	 
+	 <ul id="pinpai_id" style="display: none;">	
+		 <foreach name="brand" item="vo">
+			<li data-id="1" onclick="getCityz('{$vo.cxjj_id}','M','{$vo.cxjj_brand}')">{$vo.cxjj_brand}</li>
+		 </foreach>
+	 </ul>
+	 </div>
+      <div class="area22">
+	  		<ul>
+				
+	 		</ul>
+	  </div>
+	  <div class="area23">
+		  <ul>	
+		  </ul>
+	  </div>
+   </div>
+   <input type="hidden" name="chufa" id="chufa"/>
+   <input type="hidden" name="chufa_name" id="chufa_name"/>
+   <input type="hidden" name="mudi" id="mudi"/>
+   <input type="hidden" name="mudi_name" id="mudi_name"/>
+   <input type="hidden" name="pinpai" id="pinpai"/>
+   <input type="hidden" name="pinpai_name" id="pinpai_name"/>
+ <!-- <div class="area3"><button type="button" onclick="orderNext();">确定</button></div> -->
+
+</div>
+<script>
+//下单第二步
+function orderNext(){
+	var chufadiname = $("#chufa").val();//出发地
+	var chufa_name = $("#chufa_name").val();//出发地名称
+	var mudidiname = $("#mudi").val();//目的地
+	var mudi_name = $("#mudi_name").val();//目的名称
+	if(chufadiname.trim()==""){
+		alert("出发地不能为空!");
+		return  false;
+	}
+	if(mudidiname.trim()==""){
+		alert("目的地不能为空!");
+		return  false;
+	}
+	
+	var cartype = $("input[name='cartype_code']");
+	var size = cartype.size();
+	if(size>0){
+		var str="";
+		for(var i=0;i<size;i++){
+			 str+=$(cartype[i]).val()+"-";
+		}
+		str = str.substr(0,(str.length-1));
+		$.post('__MODULE__/OrderBook/mobileOrderNet',{chufadiname:chufadiname,mudidiname:mudidiname,pinpai:str,chufa_name:chufa_name,mudi_name:mudi_name},function(data){
+			if(data){
+				window.location.href="__MODULE__/OrderBook/mobileOrderTwo";
+			}
+		});
+	}else{
+		alert("请选择品牌车型!");
+		return false;
+	}
+}
+
+//获取市
+function getCityz(pid,sign,name){
+	if(sign=="S"){
+		$("#chufa").val('');
+		$("#chufa").val(pid);
+		$("#chufa_name").val('');
+		$("#chufa_name").val(name);
+	}else if(sign=="E"){
+		$("#mudi").val('');
+		$("#mudi").val(pid);
+		$("#mudi_name").val('');
+		$("#mudi_name").val(name);
+	}else{
+		$("#pinpai").val('');
+		$("#pinpai").val(pid);
+		$("#pinpai_name").val('');
+		$("#pinpai_name").val(name);
+	}
+	if(sign=='M'){
+		$.post('__MODULE__/OrderBook/getType',{'pid':pid},function(data){
+			var num = data.length;
+			var str = '';
+			for(var i=0;i<num;i++){
+				if(sign=='M'){
+					str += '<li onclick="closeFz(\''+data[i]['cxjj_id']+'\',\'M\',\''+data[i]['cxjj_brand']+'\');">'+data[i]['cxjj_brand']+'</li>';
+				}
+			}
+			$(".area22").find('ul').html('');
+			$(".area22").find('ul').append(str);
+		});
+	}else{
+		$.post('__MODULE__/OrderBook/getCity',{'pid':pid},function(data){
+			var num = data.length;
+			var str = '';
+			for(var i=0;i<num;i++){
+				if(sign=='S'){
+					str += '<li onclick="getBlockz(\''+data[i]['area_id']+'\',\'S\',\''+data[i]['area_name']+'\');">'+data[i]['area_name']+'</li>';
+				}else if(sign=='E'){
+					str += '<li onclick="closeFz(\''+data[i]['area_id']+'\',\'E\',\''+data[i]['area_name']+'\');">'+data[i]['area_name']+'</li>';
+				}
+			}
+			$(".area22").find('ul').html('');
+			$(".area22").find('ul').append(str);
+		});
+	}
+}
+//获取区
+function getBlockz(pid,sign,name){
+		if(sign=="S"){
+			var chufa = $("#chufa").val();
+			$("#chufa").val('');
+			$("#chufa").val(chufa+','+pid);
+			var chufa_name = $("#chufa_name").val();
+			$("#chufa_name").val('');
+			$("#chufa_name").val(chufa_name+'-'+name);
+		}else{
+			var chufa = $("#mudi").val();
+			$("#mudi").val('');
+			$("#mudi").val(chufa+','+pid);
+			var chufa_name = $("#mudi_name").val();
+			$("#mudi_name").val('');
+			$("#mudi_name").val(chufa_name+'-'+name);
+		}
+		$.post('__MODULE__/OrderBook/getBlock',{'pid':pid},function(data){
+			var num = data.length;
+			var str = '';
+			for(var i=0;i<num;i++){
+				if(sign=='S'){
+					str += '<li onclick="closeFz(\''+data[i]['area_id']+'\',\'S\',\''+data[i]['area_name']+'\');">'+data[i]['area_name']+'</li>';
+				}
+			}
+			
+			$(".area23").find('ul').html('');
+			$(".area23").find('ul').append(str);
+			$(".area23").show();
+		});
+	}
+//城市区域处理
+function closeFz(pid,sign,name){
+	$(".area0,.bg1").hide();
+	if(sign=="S"){
+		var chufa = $("#chufa").val();
+		$("#chufa").val('');
+		$("#chufa").val(chufa+','+pid);
+		var chufa_name = $("#chufa_name").val();
+		$("#chufa_name").val('');
+		$("#chufa_name").val(chufa_name+'-'+name);
+		
+		$("#chufadiname").val(chufa_name+'-'+name);
+		$(".area0,.bg1").hide();
+		$(".area23").find('ul').html('');
+		$(".area22").find('ul').html('');
+		
+	}else if(sign=="E"){
+		var pinpai = $("#mudi").val();
+		$("#mudi").val('');
+		$("#mudi").val(pinpai+','+pid);
+		var mudi_name = $("#mudi_name").val();
+		$("#mudi_name").val(mudi_name+'-'+name);
+		$("#mudidiname").val(mudi_name+'-'+name);
+		$(".area0,.bg1").hide();
+		$(".area23").find('ul').html('');
+		$(".area22").find('ul').html('');
+	}else{
+		var pinpai = $("#pinpai").val();
+		$("#pinpai").val('');
+		$("#pinpai").val(pinpai+','+pid);
+		var pinpai_name = $("#pinpai_name").val();
+		$("#pinpai_name").val('');
+		$("#pinpai_name").val(pinpai_name+'-'+name);
+		$("#pinpainame").val(pinpai_name+'-'+name);
+		$(".area0,.bg1").hide();
+		$(".area23").find('ul').html('');
+		$(".area22").find('ul').html('');
+		
+		
+	}
+}
+
+
+$(".area21 li").click(function(){
+	$(".area22").show();
+});
+$(".area22 li").click(function(){
+	$(".area23").show();
+});
+$(".area3").click(function(){
+	$(".area22").hide();
+	$(".area23").hide();
+
+	$(".bg1").hide();
+	$(".area0").hide();
+});
+
+
+
+</script>
+</body></html>

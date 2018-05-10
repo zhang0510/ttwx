@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.6,user-scalable=no"/>
+<title>登录</title>
+<!-- Bootstrap core CSS -->
+<link href="__CUSTOMER__/style/bootstrap.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="__CUSTOMER__/style/style.css" rel="stylesheet" type="text/css"/>
+<link href="__CUSTOMER__/style/style480.css" rel="stylesheet" type="text/css"/>
+<link href="__CUSTOMER__/style/style320.css" rel="stylesheet" type="text/css"/>
+
+
+<script src="__CUSTOMER__/js/jquery-1.js"></script>
+<script src="__CUSTOMER__/js/bootstrap.js"></script>
+<script src="__CUSTOMER__/js/jquery.SuperSlide.js"></script>
+
+ <style>
+ 	body,html{height:100%;width:100%;overflow:hidden;}
+ </style>
+ <script>
+//验证码
+function verify_img(){ 
+	var captcha_img = $('#captcha-container'); 
+	captcha_img.attr("src", '__MODULE__/Base/verify_c?random='+Math.random());
+}
+
+//手机动态验证码等待60秒
+var wait=60;
+function time(o) {
+		if (wait == 0) {
+			o.removeAttribute("disabled");           
+			o.value="获取验证码";
+			wait = 60;
+		} else { 
+			o.setAttribute("disabled", true);
+			o.value="重新发送(" + wait + ")";
+			wait--;
+			setTimeout(function() {
+				time(o)
+			},
+			1000)
+		}
+}
+//获取短信验证码
+function getMobileNum(obj){
+	var mobile_id = $("#mobile_id").val();//手机号
+	var verify_id = $("#verify_id").val();//图片验证码
+	var noteNum_id = $("#noteNum_id").val();//短信验证码
+	
+	if(mobile_id.trim()==""){
+		alert("手机号不能为空!");
+		return false;
+	}
+	if(verify_id.trim()==""){
+		alert("图片验证码不能为空!");
+		return false;
+	}
+	$.post('__MODULE__/Base/verifyCode',{mobile:mobile_id,verify:verify_id},function(data){
+		if(!data.flag){
+			alert(data.msg);
+		}else{
+			time(obj);
+		}
+	})
+}
+/**
+ * 提交
+ */
+function loginOverBooking(){
+	var mobile_id = $("#mobile_id").val();//手机号
+	var noteNum_id = $("#noteNum_id").val();//短信验证码
+	$.post('__MODULE__/Base/loginOverBooking',{mobile:mobile_id,noteNum:noteNum_id},function(data){
+		if(!data.flag){
+			alert(data.msg);
+		}else{
+			window.location.href="__MODULE__/OrderBook/mobileBooking";			
+		}
+	})
+}
+</script>
+</head>
+<body >
+<!--content-->
+<div class="dengm">
+ <div class="deng0">
+   <div class="deng1">
+   <!--  <h2><img src="images/wq4.png"></h2> -->
+   </div>
+   <div class="deng2" style="padding:0px;">
+   
+     <div class="deng2bo">
+	   <div class="deng2b1">
+	    <dl><dt>手机号</dt>
+		<dd  class="fh1"><input type="text" class="txt1" id="mobile_id"/></dd>
+		</dl>
+
+		 
+	    <dl>
+	    	<dt>输入验证码</dt>
+		    <dd ><input type="text" class="txt2" id="verify_id"/>
+			    <span class="txt3">
+			    	<img id="captcha-container"  src="__MODULE__/Base/verify_c" onclick="verify_img();"/>
+			    </span>
+		    </dd>
+	    </dl>
+			 <dl>
+			 	 <dt>短信验证码</dt>
+				 <dd>
+				 	<input type="text" class="txt2" id="noteNum_id"/>
+				 	<input class="txt6" type="button" onclick="return getMobileNum(this);" value="获取验证码"/>
+				 </dd>
+			 </dl>
+	
+		<div class="txt4"><input type="submit" value="登录" onclick="return loginOverBooking();"/></div>
+	 
+	 </div>
+	   <div class="deng2b2">
+	 </div>
+	 </div>
+   </div>
+ </div>
+</div>
+</body></html>

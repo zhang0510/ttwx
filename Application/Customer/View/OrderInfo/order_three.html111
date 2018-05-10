@@ -1,0 +1,427 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.6,user-scalable=no"/>
+<title>车妥妥</title>
+<!-- Bootstrap core CSS -->
+<link href="__CUSTOMER__/style/bootstrap.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="__CUSTOMER__/style/style.css" rel="stylesheet" type="text/css"/>
+
+<link href="__CUSTOMER__/style/style480.css" rel="stylesheet" type="text/css"/>
+<link href="__CUSTOMER__/style/style320.css" rel="stylesheet" type="text/css"/>
+
+
+<script src="__CUSTOMER__/js/jquery-1.js"></script>
+<script src="__CUSTOMER__/js/bootstrap.js"></script>
+<script src="__JS__/jquerytool_1.0v.js"></script>
+<script type="text/javascript">
+
+//------------------同发车人START----------------
+function withStartCar(obj){
+	if($(obj).find('span').hasClass('on')){
+		$(obj).find('span').removeClass('on');
+		$("#gather_name_txt").val("");
+		$("#gather_tel_txt").val("");
+		$("#gather_code_txt").val("");
+	}else{
+		$("#gather_name_txt").val($("#send_name_txt").val());
+		$("#gather_tel_txt").val($("#send_tel_txt").val());
+		$("#gather_code_txt").val($("#send_code_txt").val());
+		$(obj).find('span').addClass("on");
+	}
+}
+//------------------同发车人START----------------
+/*function withStartCar(obj){
+	if($(obj).find('span').hasClass('on')){
+		$(obj).find('span').removeClass('on');
+		$("#gather_name").val("");
+		$("#gather_tel").val("");
+		$("#gather_code").val("");
+	}else{
+		
+		$("#gather_name").val($("#send_name").val());
+		$("#gather_tel").val($("#send_tel").val());
+		$("#gather_code").val($("#send_code").val());
+		$(obj).find('span').addClass("on");
+	}
+}*/
+//------------------同发车人END------------------
+//------------------提交信息START---------------
+function formSbumitFun(){
+	var gcaObj = $("#gather_car_address");
+	$("#car_plate_nums").val("");
+	var cpnObj = $("input[id^='car_plate_num']");
+	var size = cpnObj.size();
+	var cpn_val="";
+	var n=1;
+	if(size>0){
+		for(var i=0;i<size;i++){
+			var val = $(cpnObj[i]).val().trim();
+			var otherinfo = $(cpnObj[i]).attr('otherinfo');
+			if(val!=""){
+				cpn_val += otherinfo+'-'+val+";";
+				n++;
+			}
+		}
+	}
+	cpn_val = cpn_val.substr(0,(cpn_val.length-1));
+	if(n<size){
+		alert("请补充完整车牌号码!");
+		return false;
+	}
+	
+	var send_name = $("#send_name_txt").val().trim();//发车人姓名
+	var send_tel = $("#send_tel_txt").val().trim();//发车人电话
+	var send_code = $("#send_code_txt").val().trim();//发车人证件号
+ 	var send_car_address = $("#send_car_address").val().trim();//发车详细地址
+	
+	var gather_name = $("#gather_name_txt").val().trim();//收车人姓名
+	var gather_tel = $("#gather_tel_txt").val().trim();//收车人电话
+	var gather_code = $("#gather_code_txt").val().trim();//收车人证件号
+	var gather_car_address = $("#gather_car_address").val();//收车详细地址
+	var remark = $("#remark").val().trim();//备注
+	
+	if(send_name==""){
+		alert("发车人姓名不能为空!");
+		return false;
+	}
+	if(send_tel==""){
+		alert("发车人电话不能为空!");
+		return false;
+	}else{
+		if(!$.check_Mobile(send_tel)){
+			alert('请输入正确的发车人手机号');
+			return false;
+		}
+	}
+	if(send_code==""){
+		alert("发车人证件号不能为空!");
+		return false;
+	}else{
+		if(!$.isIdCardNo(send_code)){
+			alert("发车人身份证格式不对");
+			return false;
+		}
+	}
+	
+	if(gather_name==""){
+		alert("收车人姓名不能为空!");
+		return false;
+	}
+	if(gather_tel==""){
+		alert("收车人电话不能为空!");
+		return false;
+	}else{
+		if(!$.check_Mobile(gather_tel)){
+			alert('请输入正确的收车人手机号');
+			return false;
+		}
+	}
+	
+	if(gather_code==""){
+		alert("收车人证件号不能为空!");
+		return false;
+	}else{
+		if(!$.isIdCardNo(gather_code)){
+			alert("收车人身份证格式不对");
+			return false;
+		}
+	}
+	if(send_car_address==""){
+		alert("发车详细地址不能为空!");
+		return false;
+	}
+	
+	if(gcaObj.size()>0){
+		var gcaval = gcaObj.val().trim();
+		if(gcaval==""){
+			alert("收车详细地址不能为空!");
+			return false;
+		}
+	}
+	
+	$("#car_plate_nums").val(cpn_val);
+	$("#send_name_id").val(send_name);
+	$("#send_tel_id").val(send_tel);
+	$("#send_code_id").val(send_code);
+	$("#gather_name_id").val(gather_name);
+	$("#gather_tel_id").val(gather_tel);
+	$("#gather_code_id").val(gather_code);
+	$("#send_car_address_id").val(send_car_address);
+	$("#gather_car_address_id").val(gather_car_address);
+	$("#remark_id").val(remark);
+	$("#four_form_id").submit();
+}
+//------------------提交信息END-----------------
+
+  $(".inko").click(function(){
+	  var connectCarWay = $("#connectCarWay").val();
+	if(connectCarWay=="Y"){
+		$("#selected_id").show();
+	}else{
+		$("#selected_id").hide();
+	}
+  
+  });
+  
+   $(".selected li").click(function(){
+  $(this).parent().parent().hide();
+   var oop= $(this).html();
+  $(this).parent().parent().siblings('.inko').val(oop); 
+   
+  });
+  $(".ee32a li").click(function(){
+  
+  $(this).addClass("on").siblings().removeClass('on');
+  });
+  $(".ee71 span").click(function(){
+  if($(this).hasClass('on')){
+  $(this).removeClass('on');
+  }else{
+  $(this).addClass("on");
+  }
+  
+  });
+  
+  function openF(sign,obj){
+		$(obj).addClass('on');
+		$("#bg").show();
+		$("#tan1").show();
+		$("#sel").attr('name',sign);
+	}
+  function selectF(obj){
+		var sign = $(obj).attr('name');
+		var name = $(".clist1.on").find('.bm1').attr('name');
+		var phone = $(".clist1.on").find('.bm2').attr('name');
+		var iden = $(".clist1.on").find('.bm3').attr('name');
+		
+		if(sign=='S'){
+			if(name!=""||phone!=""||iden!=""){
+				$("#send_name_txt").val(name);
+				$("#send_tel_txt").val(phone);
+				$("#send_code_txt").val(iden);
+			}else{
+				
+				$('#facheren_changyong_id').removeClass('on');
+			}
+			
+		}else{
+			if(name!=""||phone!=""||iden!=""){
+				$("#gather_name_txt").val(name);
+				$("#gather_tel_txt").val(phone);
+				$("#gather_code_txt").val(iden);
+			}else{
+				$('#shoucheren_changyong_id').removeClass('on');
+			}
+		}
+		$("#bg").hide();
+		$("#tan1").hide();
+	}
+  
+	
+	$("#closed").click(function(){
+		$("#bg").hide();
+		$("#tan1").hide();
+	})
+</script>
+</head>
+<body>
+<div style="display: none;">
+	<form action="__MODULE__/OrderBook/groupFour" method="post" id="four_form_id">
+		<input type="hidden" id="car_plate_nums" name="car_plate_nums"/><!-- 车牌号码 -->
+		
+		<input type="hidden" id="send_name_id" name="send_name"/><!-- 发件人姓名 -->
+		<input type="hidden" id="send_tel_id" name="send_tel"/><!-- 发件人电话-->
+		<input type="hidden" id="send_code_id" name="send_code"/><!-- 发件人证件号 -->
+		
+		<input type="hidden" id="gather_name_id" name="gather_name"/><!-- 收件人姓名 -->
+		<input type="hidden" id="gather_tel_id" name="gather_tel"/><!-- 收件人电话 -->
+		<input type="hidden" id="gather_code_id" name="gather_code"/><!-- 收件人证件号-->
+		
+		<input type="hidden" id="send_car_address_id" name="send_car_address"/><!-- 发车人详细地址 -->
+		<input type="hidden" id="gather_car_address_id" name="gather_car_address"/><!-- 收车人详细地址-->
+		
+ 		<input type="hidden" id="remark_id" name="remark"/><!--备注 -->
+	</form>
+</div>
+<!--content-->
+<div class="wxnav">
+<a href="" class="get1">&lt;</a>
+<h2>详细地址</h2>
+
+</div>
+<div class="dengm2">
+ <div class="deng0"><!-- 
+   <div class="deng1">
+    <h2>详细地址</h2>
+   </div> -->
+   <div class="deng2e0">
+      <div class="ee1"><h2>{$province.area_name} <img src="__CUSTOMER__/images/ee1.png"/> {$aimPro.area_name}</h2></div>
+      	<foreach name="gbList" item="vo" key="k">
+	  		<div class="ee2">{$vo.brand_name} {$vo.cartype_name}<span>{$vo.car_num}辆</span></div>
+	    </foreach>
+	   <div class="rr3">
+	     <div class="rr31">车辆信息</div>
+	     <div class="rr32">
+	     
+		<!-- <input type="text" value=""/> -->
+		   
+		   <foreach name="carInfoList" item="vo" key="k">
+		   		<foreach name="vo" item="voo" key="kk">
+		   		<div class="rr32ad">
+		   			<div class="rr32ad1">
+			   			<span class="dre1">车型：{$voo.brand_name} {$voo.cartype_name}</span>
+			   			<span  class="dre2">车牌号：</span><input type="text" id="car_plate_num_{$kk}" otherinfo="{$voo.brand_name}-{$voo.cartype_name}-{$voo.car_guzhi}-{$voo.car_yuanbaoxian}-{$voo.car_price}"/></div>
+		   			<div class="rr32ad2">
+		   				<span>估值<strong>{$voo.car_guzhi}</strong>万元整</span>
+		   			</div>
+		   		</div>
+		   		</foreach>
+		   </foreach>
+		 
+		 </div>
+		 <div class="rr33">车辆信息是为您爱车购买保险的依据，无牌车填写车架号代替。请准确填写，确保您的合法权益</div>
+	   </div>
+	  	<div class="rr4">
+		<div class="rr41">
+		 <h2 class="rra1">发车信息</h2>
+		 <h2 class="rra2">发车人
+		 	<if condition="$linkListsize gt 0 ">
+		  		<span  class="hhhh" onclick='openF("S",this);' id="facheren_changyong_id">常用联系人</span>
+		    </if>
+		 </h2>
+		  <div class="rr41a">
+			<!--   <dl><dt>*</dt><dd><input type="text" class="rry1" placeholder="联系人姓名" id="send_name_txt"/><span  class="hp1" onclick='openF("S",this);'></span></dd></dl>
+			  <dl><dt>*</dt><dd><input type="text" class="rry1" placeholder="联系人电话" id="send_tel_txt"/></dd></dl>
+			  <dl><dt>*</dt><dd><input type="text" class="rry1" placeholder="联系人身份证号码" id="send_code_txt"/></dd></dl> -->
+			  
+			  <dl><dt><span>*</span>联系人姓名：</dt><dd><input type="text" class="rry1" placeholder=""  id="send_name_txt"></dd></dl>
+		  <dl><dt><span>*</span>联系人电话：</dt><dd><input type="text" class="rry1" placeholder="" id="send_tel_txt"></dd></dl>
+		  <dl><dt><span>*</span>联系人身份证号码：</dt><dd><input type="text" style="width:50%;" class="rry1"  id="send_code_txt" placeholder=""></dd></dl>
+		  
+			  
+			  
+			  
+		  </div>
+		  <h2 class="rra2">发车地址</h2>
+<!-- 		  <div class="rr41a">
+		  <dl>
+		  <dt>*</dt>
+		  <dd>
+		  <input class="rry1" placeholder="发车区域"  type="text" value="{$province.area_name}-{$city.area_name}-{$area.area_name}"/>
+		 </dd>
+		 </dl>
+		  <dl><dt>*</dt><dd><input type="text" class="rry1" placeholder="发车详细地址" id="send_car_address"/></dd></dl>
+		  
+		  </div> -->
+		  	  <div class="rr41a">		  
+		   <dl><dt><span>*</span>地址：</dt><dd><input type="text" class="rry1"  value="{$province.area_name}-{$city.area_name}-{$area.area_name}"></dd></dl>
+		  <dl><dt><span>*</span>发车详细地址：</dt><dd><input type="text" class="rry1"  id="send_car_address"></dd></dl>
+		  
+		  
+		  </div>
+		  
+		  
+		  
+		  
+		  
+		
+		</div>
+		<div class="rr41">
+			 <h2 class="rra1">收车信息</h2>
+			  <h2 class="rra2" onclick="withStartCar(this);">收车人 <span>同发车人</span> 
+			  	<if condition="$linkListsize gt 0 ">
+			  		<span  class="hhhh" onclick='openF("R",this);' id="shoucheren_changyong_id">常用联系人</span>
+			  	</if>
+			  </h2>
+			  <div class="rr41a">
+			  <!-- <dl><dt>*</dt><dd><input type="text" class="rry1" placeholder="联系人姓名" id="gather_name_txt"/><span  class="hp1" onclick='openF("R",this);'></span></dd></dl>
+			  <dl><dt>*</dt><dd><input type="text" class="rry1" placeholder="联系人电话" id="gather_tel_txt"/></dd></dl>
+			  <dl><dt>*</dt><dd><input type="text" class="rry1" placeholder="联系人身份证号码" id="gather_code_txt"/></dd></dl> -->
+			  
+			    <dl><dt><span>*</span>联系人姓名：</dt><dd><input type="text" class="rry1" placeholder=""  id="gather_name_txt"></dd></dl>
+		  <dl><dt><span>*</span>联系人电话：</dt><dd><input type="text" class="rry1" placeholder="" id="gather_tel_txt"></dd></dl>
+		  <dl><dt><span>*</span>联系人身份证号码：</dt><dd><input type="text" style="width:50%;" class="rry1"  id="gather_code_txt" placeholder=""></dd></dl>
+			  
+			  
+			  
+			  
+		  </div>
+		<h2 class="rra2">收车地址</h2>
+		<div class="rr41a">
+		<dl>
+			<dt><span>*</span>地址：</dt>
+			<dd>
+				<if condition="$connectCarWay eq 'Y' ">
+					<input class="rry1" placeholder="收车地区"  type="text" value="{$aimPro.area_name}-{$aimCity.area_name}-{$ztname}"/>
+				<else />
+					<input class="rry1" placeholder="收车地区"  type="text" value="{$aimPro.area_name}-{$aimCity.area_name}"/> 
+				</if>
+			</dd>
+		</dl>
+		<dl>
+			<if condition="$connectCarWay eq 'Y' ">
+				<dt><span>*</span>发车详细地址：</dt>
+				<dd>
+					<input type="text" class="rry1" placeholder="发车详细地址" id="gather_car_address"/>
+				</dd>
+			</if>
+		</dl>
+		</div>
+		</div>
+		</div>  
+		<div style="clear:both;"></div>
+	  	<div class="rr5">
+		  	
+			
+			 <dl><dt><span></span>备注：</dt><dd><textarea  placeholder="" id="remark"></textarea></dd></dl>
+			
+			
+			
+		</div>
+ 		<div class="ee81"><button type="button" onclick="return formSbumitFun();">确定发车</button></div>
+   </div>
+ </div>
+</div>
+ <!-- 常用联系人START -->
+ <div  id="bg" class="bg" style="display:none;"></div>
+<div  id="tan1" class="tan1"  style="display:none;height: 80%;">
+   <div class="tan11">
+         <a class="closed" id="closed">X</a>
+    <h2>常用联系人</h2>
+   <div class="clist" style="overflow:auto;height:600px;">
+   <volist name="linkList" id="v">
+      <div class="clist1" style="line-height: 60px;font-size: 24px;">
+	    <b></b>
+	    <input type="radio" name="bb[]" value="{$v.link_code}" class="del" />
+	    <span class="bm1" name="{$v.link_name}">姓名：{$v.link_name}</span><br>
+	    <span class="bm2" name="{$v.link_tel}">手机号：{$v.link_tel}</span><br>
+	    <span class="bm3" name="{$v.link_num}">身份证号：{$v.link_num}</span>
+	  </div>
+	</volist>
+
+   </div>
+
+     <p>
+	 <button class="put2" type="button" id="sel" name="S" onclick="selectF(this)">确定</button>
+	 <!-- <button class="put3" type="button" id="del" onclick="delLink()">删除</button> -->
+	 </p>
+   </div>
+
+</div>	
+<script>
+$(".clist1").click(function(){
+		$(this).addClass("on").siblings().removeClass('on');
+	});
+</script>
+</body>
+</html>

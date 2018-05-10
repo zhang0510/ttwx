@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.6,user-scalable=no"/>
+<title>下单第四步</title>
+<!-- Bootstrap core CSS -->
+<link href="__CUSTOMER__/style/bootstrap.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="__CUSTOMER__/style/style.css" rel="stylesheet" type="text/css"/>
+
+<link href="__CUSTOMER__/style/style480.css" rel="stylesheet" type="text/css"/>
+<link href="__CUSTOMER__/style/style320.css" rel="stylesheet" type="text/css"/>
+
+
+<script src="__CUSTOMER__/js/jquery-1.js"></script>
+<script src="__CUSTOMER__/js/bootstrap.js"></script>
+<script src="__JS__/jquerytool_1.0v.js"></script>
+<script src="__JS__/layer/layer.js"></script>
+<script src="__JS__/indexTuo.js"></script>
+
+</head>
+<body>
+
+<div class="dengm2">
+ <div class="deng0">
+ 	<input type="hidden" id="end_names" value="{$name2}">
+   <form method="post" action="__MODULE__/OrderBook/OrderTh" id="quickz">
+   <div class="deng2e">
+      <div class="ee1"><h2>{$name1}<img src="__FRONT__/images/ee1.png">{$name2}</h2></div>
+	   <div class="ee3m">
+	   <div class="ee3">
+	     <div class="ee31 ee31a">附加服务</div>
+	     <div class="ee32">
+		   <div class="ee32a">
+		    <ul><li onclick="smsFun(this);">送车上门</li><li id="sefwrg" onclick="xiFun(this);">洗车  50元</li></ul>
+		   </div>
+		   <div class="ee32b">
+		   <p>选择送车上门后才能选此项</p>
+		   </div>
+		 </div>
+			<div class="wxdd4 wxdd44" id="awgfw" style="display: none;">
+				<dl id="gan1">
+					<dt >地址：</dt>
+					<dd>
+						<input type="text" readonly="readonly" placeholder="选择地址" value="" id="chufadiname"/><a class="gan1" ></a><span>费用：<ca id="wegwe">0</ca>元</span>
+					</dd>
+				</dl>
+		
+				<div class="uii">
+				<h2>详细地址：<span id="sgrgw"></span></h2>
+				<p><input  placeholder="请输入详细地址" type="text" id="order_info_end_address" name="order_info_end_address" class="txt1" value="{$saddress}"></p>
+				</div>
+			</div>
+			
+	   </div>
+	   </div>
+	  	<input type="hidden" id="order_info_smsc" name="order_info_smsc" value="N">
+	  	<input type="hidden" id="car_washing" name="car_washing" value="0">
+	  	<input type="hidden" id="city_qus" name="city_qus" value="">
+	  	<input type="hidden" id="order_smsc_car" name="order_smsc_car" value="">
+	  	<input type="hidden" id="totalz" name="totalz" value="{$order['totalz']+$order['order_info_bxd']}">
+	  	<input type="hidden" id="qerez" value="{$order.order_info_end}">
+		 <div class="ee3m">
+	    <div class="ee6">
+		 <div class="ee31 ee31a">费用合计:<b id="rthrtwe">{$order['totalz']+$order['order_info_bxd']}</b>元</div>
+		     <div class="ee61"> 
+			 <dl>
+			  <dd>
+			   <p>运费<b id="yuns">{$yun}</b>元，保险费<b id="bao">{$order.order_info_bxd}</b>元，洗车费<b id="xiprice">0</b>元，上门费<b id="smsprice">0</b>元</p>
+			   <p>优惠码：<input type="text" onblur="favFun(this);" id="fav_code" name="fav_code" placeholder="优惠码编号" value=""><span>&nbsp;<img src="__CUSTOMER__/images/quan3.png">（已优惠:<b id="youhui">0</b>元）</span></p>
+			   
+			  </dd>
+			  </dl></div>
+			  <div class="ee62">
+			   <p><span class="fg1">本次服务需支付总金额：</span><span class="fg2">￥<b id="heji">{$order['totalz']+$order['order_info_bxd']}</b>元</span></p>
+	     </div>
+	   	</div>
+		</div>
+ 	<div class="ee8"><button type="button" onclick="queFun();">确定发车</button></div>
+   </div>
+   </form>
+ </div>
+</div>
+<div id="bg0" class="bg1"></div>
+<div id="area0" class="area0">
+   <div class="area2">
+     <div class="area21">
+	 
+	 <ul id="chufadi_id" style="display: none;">	
+		 <foreach name="block" item="vo">
+			<li data-id="1" onclick="getBlock('{$vo.area_id}','{$vo.area_name}')">{$vo.area_name}</li>
+		 </foreach>
+	 </ul>
+	 </div>
+      <div class="area22">
+	  		<ul>
+				
+	 		</ul>
+	  </div>
+	  
+   </div>
+ <!-- <div class="area3"><button type="button" onclick="orderNext();">确定</button></div> -->
+
+</div>
+<script>
+$("#gan1").click(function(){
+	$("#mudidi_id").hide();
+	$("#pinpai_id").hide();
+	$("#chufadi_id").show();
+	$(".area0,.bg1").show();
+});
+function getBlock(id,name){
+	var ss = $("#end_names").val();
+	$(".area0,.bg1").hide();
+	$("#city_qus").val(id);
+	$("#sgrgw").html(ss+name);
+	$('#chufadiname').val(name);
+	block();
+}
+
+function queFun(){
+	var order_info_smsc = $("#order_info_smsc").val();
+	var city_qus = $("#city_qus").val();
+	var order_info_end_address = $("#order_info_end_address").val();
+	if(order_info_smsc == "Y"){
+		if(city_qus == ''){
+			layer.msg("请选择送车区域");
+			return false;
+		}
+		if(order_info_end_address == ''){
+			layer.msg("请输入详细地址");
+			return false;
+		}
+	}
+	$("#quickz").submit();
+}
+function favFun(obj){
+	var code = $(obj).val();
+	if(code!=""){
+		$.post("__MODULE__/OrderBook/getFavPrice",{code:code},function(data){
+			if(data.flag){
+				$("#youhui").html(data.price);
+				totelFun();
+			}else{
+				$("#youhui").html(0);
+				totelFun();
+			}
+		},'json');
+	}else{
+		$("#youhui").html(0);
+	}
+	
+}
+function smsFun(obj){
+	if($(obj).attr("class")=="on"){
+		$(obj).removeClass("on");
+		$("#order_info_smsc").val('N');
+		$("#awgfw").hide();
+		$("#sefwrg").removeClass("on");
+		$("#car_washing").val(0);
+		$("#xiprice").html(0);
+	}else{
+		$(obj).addClass("on");
+		$("#order_info_smsc").val('Y');
+		$("#awgfw").show();
+	}
+	block();
+}
+function xiFun(obj){
+	if($("#order_info_smsc").val() == 'Y'){
+		if($(obj).attr("class")=="on"){
+			$(obj).removeClass("on");
+			$("#car_washing").val(0);
+			$("#xiprice").html(0);
+		}else{
+			$(obj).addClass("on");
+			$("#car_washing").val(50);
+			$("#xiprice").html(50);
+		}
+		totelFun();
+	}else{
+		layer.msg("请选择上门送车");
+		return false;
+	}
+	
+}
+function block(){
+	var id = $("#city_qus").val();
+	var city_jie_sheng = $("#qerez").val();
+	var mark = $('#order_info_smsc').val();
+	if(id!=""){
+		$.post("__MODULE__/OrderBook/smscFun",{id:id,type:mark,str:city_jie_sheng},function(data){
+			if(data.flag){
+				$("#smsprice").html(data.prices);
+				$("#order_smsc_car").val(data.prices);
+				$('#wegwe').html(data.prices);
+				totelFun();
+			}else{
+				$("#smsprice").html(0);
+				$("#order_smsc_car").val(0);
+				$('#wegwe').html(0);
+				totelFun();
+			}
+		},'json');
+	}
+	
+}
+
+$(".area21 li").click(function(){
+	$(".area22").show();
+});
+$(".area22 li").click(function(){
+	$(".area23").show();
+});
+$(".area3").click(function(){
+	$(".area22").hide();
+	$(".area23").hide();
+
+	$(".bg1").hide();
+	$(".area0").hide();
+});
+</script>	
+</body>
+</html>

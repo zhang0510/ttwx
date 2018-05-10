@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.6,user-scalable=no"/>
+<title>妥妥运车</title>
+<!-- Bootstrap core CSS -->
+<link href="__CUSTOMER__/style/bootstrap.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="__CUSTOMER__/style/style.css" rel="stylesheet" type="text/css"/>
+
+<link href="__CUSTOMER__/style/style480.css" rel="stylesheet" type="text/css"/>
+<link href="__CUSTOMER__/style/style320.css" rel="stylesheet" type="text/css"/>
+
+
+<script src="__CUSTOMER__/js/jquery-1.js"></script>
+<script src="__CUSTOMER__/js/bootstrap.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+$.ajaxSetup({
+	  async: false
+	  });
+function groupOrder(){
+	var payway = $("#payWay_ID").val();
+	var token = $("#token_code").val();
+	$.post('__MODULE__/GroupBuy/groupOrder',{'payway':payway,'token':token},function(data){
+		
+	});
+	//window.location.href="__MODULE__/GroupBuy/groupOrder/payway/"+payway+"/token/"+token;
+}
+function payway(obj){
+	var objs = $(obj).parent('li');
+	$('li').removeClass('on'); 
+	objs.addClass('on');
+	var payway = $(obj).find("input").val();
+	$("#payWay_ID").val(payway);
+}
+$(".inko").click(function(){
+	  $(this).siblings(".selected").show();
+	  
+	  });
+	   $(".selected li").click(function(){
+	  $(this).parent().parent().hide();
+	   var oop= $(this).html();
+	  $(this).parent().parent().siblings('.inko').val(oop); 
+	   
+	  });
+	    $(".du339a ul li").click(function(){
+
+	  $(this).addClass('on').siblings().removeClass('on'); 
+	   
+	  });
+</script>
+<style>html,body{background:#fff;}</style>
+</head>
+<body>
+<div class="wxnav">
+<a onclick="history.go(-1)" class="get1">&lt;</a>
+<h2>确认支付</h2>
+
+</div>
+<div class="order_body1">
+<div class="order_main container">
+  <div class="order_detail">
+    <div class="order_d1">
+	  <div class="du32">
+	  <!--  <p>积分抵扣：￥0元</p> 
+	   <p>奖券抵扣：￥{$youhui|default="0"}元</p>-->
+	   <p>运输价格（含提车费）：￥{$yuanjia|default="0"}元</p>
+	   <p>保险费用：￥{$baoxian|default="0"}元</p>
+	   <p>车型加价：￥{$price_all|default="0"}元</p>
+	   <p>优  惠  券：-￥{$youhui|default="0"}元</p>
+	   <p>送车价格：￥{$songcheshangmen|default="0"}元</p>
+	   <p class="on">共计：<span><b>￥<em>{$platelets|default="0"}</em>元</b></span></p>
+	  </div>
+	  <div class="du339">
+	    <div class="du339a">
+	   <ul>
+			<!--
+		  <li class="on">
+		 <label onclick="payway(this);"><img src="__CUSTOMER__/images/zf2.png"/>
+		 <p>微信</p>
+		 <input value="W" type="radio" name="pay" />
+		 <label>
+		 </li>
+		 -->
+		   <li>
+		 <label onclick="payway(this);"><img src="__CUSTOMER__/images/zf3.png"/>
+		 <p>货到付款</p>
+		 <input value="H" type="radio" name="pay"/>
+		 <label>
+		 </li>
+	   
+	   </ul>
+	 
+	  </div>
+	 <div class="du339b">
+	  <input type="hidden" name="payWay" id="payWay_ID" value="H"/>
+	  <input type="hidden" name="token_code" id="token_code" value="{$token}"/>
+	  <button type="button" onclick="wxpay();">确定付款</button>
+	 
+	  </div>
+	  </div>
+  </div>
+  
+  </div>
+
+</div>
+ </div>
+<script>
+	$(document).ready(function(){
+		var url = location.href.split('#')[0];
+		$.post('__MODULE__/Payment/getJsSign',{'url':url},function(data){
+			if(data!=''){
+				wx.config({
+	    		    debug:false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+	    		    appId:data.appId, // 必填，公众号的唯一标识
+	    		    timestamp:data.timestamp, // 必填，生成签名的时间戳
+	    		    nonceStr:data.nonceStr, // 必填，生成签名的随机串
+	    		    signature:data.signature,// 必填，签名，见附录1
+	    		    jsApiList: [    // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+	    		                    //'checkJsApi',
+	    		                    //'getLocation'
+									
+	    					   ] 	
+			
+			});
+			}
+		})
+	})
+	//调用微信JS api 支付
+		//alert(1234);
+		function wxpay(){
+			var total = '{$platelets}';
+			//alert(wxpay);
+			//total = total*100;
+			var payway = $("#payWay_ID").val();
+			var token = $("#token_code").val();
+			if(payway=='W'){
+				$.post('__MODULE__/OrderBook/groupOrder',{'payway':payway,'token':token},function(data){
+					if(data.touCode!=''&&data.touCode!=null){
+						if(data.carCount!=0&&data.carCount==data['infoCode'].length){
+							$.post('__MODULE__/Payment/startPay',{'code':data.touCode,'total':total},function(data){
+								if(data!=''){
+									//alert(data.packages);
+									WeixinJSBridge.invoke(
+										'getBrandWCPayRequest',
+											{"appId":data.appid,
+											"timeStamp":data.timeStamp,
+											"nonceStr":data.nonceStr,
+											"package":data.packages,
+											"signType":data.signType,
+											"paySign":data.paySign,
+											},
+										
+										function(res){
+											WeixinJSBridge.log(res.err_msg);
+											//alert(res.err_code+res.err_desc+res.err_msg);
+										}
+									);
+									WeixinJSBridge.call('closeWindow');
+								}else{
+									alert('数据错误03');//03为js支付未进入
+								}
+							});
+						}else{
+							alert('数据错误01');//01为数据写入不全    
+						}
+					}else{
+						alert('数据错误02');//02为数据没写入
+					}
+				});
+			}else{
+				window.location.href="__MODULE__/OrderBook/groupOrderTwo/payway/"+payway+"/token/"+token;
+			}
+			
+			//var opid = $("#opid").val();
+			//alert(opid);
+		}  
+</script>		
+</body>
+</html>

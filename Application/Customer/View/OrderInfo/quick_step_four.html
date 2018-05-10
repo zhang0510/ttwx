@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.6,user-scalable=no"/>
+<title>确认订单</title>
+<!-- Bootstrap core CSS -->
+<link href="__CUSTOMER__/style/bootstrap.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="__CUSTOMER__/style/style.css" rel="stylesheet" type="text/css"/>
+
+<link href="__CUSTOMER__/style/style480.css" rel="stylesheet" type="text/css"/>
+<link href="__CUSTOMER__/style/style320.css" rel="stylesheet" type="text/css"/>
+
+
+<script src="__CUSTOMER__/js/jquery-1.js"></script>
+<script src="__CUSTOMER__/js/bootstrap.js"></script>
+<script src="__JS__/jquerytool_1.0v.js"></script>
+<script src="__JS__/layer/layer.js"></script>
+<script src="__JS__/indexTuo.js"></script>
+
+</head>
+<body>
+
+<div class="dengm2">
+ <div class="wxake">
+   <div class="wxdd3 fvdvs">
+		
+			<div class="wxake1">
+				<h2 class="wxake2"><img src="__CUSTOMER__/images/we5.png">&nbsp;&nbsp;车辆信息</h2>
+				<div class="wxake3">
+					<dl><dt>车型：</dt><dd><p>{$order.order_info_brand} {$order.order_info_type}</p></dd></dl>
+					<dl><dt>车牌号：</dt><dd><p>{$order.order_info_carmark}</p></dd></dl>
+				</div>
+			</div>
+			<div class="wxake1">
+				<h2 class="wxake2"><img src="__CUSTOMER__/images/vl3.png">&nbsp;&nbsp;出发地</h2>
+				<div class="wxake3">
+					<dl><dt>提车人：</dt><dd><p>{$tclxr[0]}</p></dd></dl>
+					<dl style="display:none;"><dt>电话：</dt><dd><p>{$tclxr[1]}</p></dd></dl>
+					<dl style="display:none;"><dt>身份证：</dt><dd><p>{$tclxr[2]}</p></dd></dl>
+					<dl><dt>提车地址：</dt><dd><p>{$order.chufa_name} {$order.order_info_star_address}</p></dd></dl>
+				</div>
+			</div>
+			<div class="wxake1">
+				<h2 class="wxake2"><img src="__CUSTOMER__/images/vl5.png">&nbsp;&nbsp;目的地</h2>
+				<div class="wxake3">
+					<dl><dt>收车人：</dt><dd><p>{$sclxr[0]}</p></dd></dl>
+					<dl style="display:none;"><dt>电话：</dt><dd><p>{$sclxr[1]}</p></dd></dl>
+					<dl><dt>身份证：</dt><dd><p>{$sclxr[2]}</p></dd></dl>
+					<dl style="display:none;"><dt>送车地址：</dt><dd><p>{$order.mudi_name}{$citys} {$order.order_info_end_address}</p></dd></dl>
+				</div>
+			</div>
+			<div class="wxake1">
+				<h2 class="wxake2"><img src="__CUSTOMER__/images/vl8.png">&nbsp;&nbsp;附加服务</h2>
+				<div class="wxake3">
+					<dl><dd><p>{$str}</p></dd></dl>
+				</div>
+			</div>
+			<div class="wxake1">
+				<h2 class="wxake2">合计费用：{$price}元</h2>
+			
+		</div>
+
+		</div>  
+		<div style="clear:both;"></div>
+ <div class="ee81"><button type="button" onclick="queFun();">下一步</button></div>
+   </div>
+</div>
+<script>
+function queFun(){
+	$.post("__MODULE__/OrderBook/orderInsert",{},function(data){
+		if(data.flag){
+			window.location.href="__MODULE__/OrderBook/suOrder/code/"+data.code;
+		}else{
+			layer.msg("下单失败");
+			return false;
+		}
+	},'json');
+}
+</script>	
+</body>
+</html>

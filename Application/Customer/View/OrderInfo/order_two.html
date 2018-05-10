@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.6,user-scalable=no"/>
+<title>下单第二步</title>
+<!-- Bootstrap core CSS -->
+<link href="__CUSTOMER__/style/bootstrap.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="__CUSTOMER__/style/style.css" rel="stylesheet" type="text/css"/>
+<link href="__CUSTOMER__/style/style480.css" rel="stylesheet" type="text/css"/>
+<link href="__CUSTOMER__/style/style320.css" rel="stylesheet" type="text/css"/>
+
+<script src="__CUSTOMER__/js/jquery-1.js"></script>
+<script src="__CUSTOMER__/js/bootstrap.js"></script>
+<script src="__JS__/jquerytool_1.0v.js"></script>
+<script src="__JS__/layer/layer.js"></script>
+<script src="__JS__/indexTuo.js"></script>
+</head>
+<body>
+
+
+
+<!--content-->
+<!--content-->
+<div class="dengm2">
+	<div class="deng0">
+		<div class="deng2e">
+			<div class="ee1">
+				<h2>{$name1}&nbsp;&nbsp;&nbsp;<img src="__CUSTOMER__/images/ee1.png"/>&nbsp;&nbsp;&nbsp;{$name2}</h2>
+			</div>
+			<div class="pp80">
+			<div class="pp8">
+				<div class="wxdd3">
+					<h2>车型：</h2><h3>{$data.order_info_brand}--{$data.order_info_type}</h3>
+				</div>
+				<div class="wxdd3">
+					<h2>运费：</h2><h3><b id="totelz">{$data.totalz}</b>元</h3>
+				</div>
+				<div class="wxdd3">
+					<h2>保额：</h2><h3><input type="text" onblur="baojia();" onkeyup="if(event.keyCode !=37 && event.keyCode != 39){if (!/^[\d]+$/ig.test(this.value)){this.value='';}}" id="car_baojia" />(单位:万)</h3>
+				</div>
+				<div class="wxdd3">
+					<h2>保险费：</h2><h3><b id="baoprice">0</b>元</h3>
+				</div>
+				<div class="wxdd3" style="border:0px;">
+					<h2>合计费用：</h2><h3><b id="heji">{$data.totalz}</b>元</h3>
+				</div>
+			</div>
+			</div>
+			<div class="ee7">
+				<div class="ee71">
+					<p>
+						<span id="awdafew" class="on">
+							<label>已阅读<input type="checkbox" checked value="Y" name="dfd" id="dfd"/></label>
+						</span>
+						<a href="javascript:;" onclick="ystkfw('运输说明','A');">运输说明</a>
+						<a href="javascript:;" onclick="ystkfw('退款规则','B');">退款规则</a>
+						<a href="javascript:;" onclick="ystkfw('服务协议','C');">服务协议</a>
+					</p>	  
+				</div>
+			</div>
+			<div class="ee8"><button type="button" onclick="return formsubmit();">下一步</button></div>
+		</div>
+	</div>
+</div>
+<form action="__MODULE__/OrderBook/groupThree" method="post" id="form_group_two_id">
+		<!-- 车价 -->
+		<input type="hidden" name="order_info_price" id="order_info_price" value='0' />
+		<!-- 保价 -->
+		<input type="hidden" name="order_info_bxd" id="order_info_bxd" value='0' />
+		<input type="hidden" name="flag" id="flag" value='{$data.flag}' />
+</form>
+
+
+<!--content-->
+<script>
+//保费查询
+function baojia(){
+	var car_baojia = $("#car_baojia").val();
+	if(!$.isPositiveNum(car_baojia))car_baojia=0;
+	if(car_baojia == "" || car_baojia == 0){
+		layer.msg("请输入保额");
+		return false;
+	}
+	$.post("__MODULE__/OrderBook/getAcale",{car_baojia:car_baojia},function(data){
+		$("#baoprice").html(data);
+		$("#order_info_price").val(car_baojia);
+		$("#order_info_bxd").val(data);
+		totelFun();
+	},'json');
+}
+function formsubmit(){
+	var order_info_bxd = $("#order_info_bxd").val();
+	var order_info_price = $("#order_info_price").val();
+	var car_baojia = $("#car_baojia").val();
+	if(order_info_price.length >5){
+		$('#order_info_bxd').val(0);
+		$('#baoprice').html(0);
+		layer.msg("保额最多输入5位");
+		return false;
+	}
+	if(order_info_bxd==0 || order_info_price==0 || car_baojia==""){
+		layer.msg("请输入保额!");
+		return false;
+	}
+	//阅读协议
+	var dfd = $("#awdafew").attr("class");
+	if(dfd==""){
+		layer.msg("请确认是否已经阅读：运输说明、退款规则、服务协议!");
+		flay = false;
+		return false;
+	}
+	
+	$("#form_group_two_id").submit();
+}
+
+  $(".inko").click(function(){
+  $(this).siblings(".selected").show();
+  
+  });
+   $(".selected li").click(function(){
+  $(this).parent().parent().hide();
+   var oop= $(this).html();
+  $(this).parent().parent().siblings('.inko').val(oop); 
+   
+  });
+  $(".ee32a li").click(function(){
+  
+  $(this).addClass("on").siblings().removeClass('on');
+  });
+  $(".ee71 span").click(function(){
+  if($(this).hasClass('on')){
+  $(this).removeClass('on');
+  }else{
+  $(this).addClass("on");
+  }
+  
+  });
+  </script>
+<!--footer-->
+<div  id="bg1" class="bg" style="background:#000 url(__CUSTOMER__/images/loading.gif) no-repeat center center;opacity:0.5;display:none;">
+
+</div>
+<div  id="bg" class="bg" style="display:none;"></div>
+<div class="den0" style="display: none;">
+   <div class="den1">
+    <h2>运输说明</h2>
+   </div>
+   <div style="padding:0px;" class="deng2">
+		<div class="noty1" id="noty1_a">
+			<P>车妥妥，成立于2012年，总部位于北京。作为中国领先的汽车运输服务提供商，总公司致力于商品车整车运输。2013年始，公司积极借鉴国际上成功的汽车运输模式，结合中国客户的旅游、商务出行习惯，整合优化轿运车航班路线，开始提供专业化的二手车运输服务，为客户自驾旅游、异地办公、同城转车等业务提供完善的配套服务。</P>
+			<p>&nbsp;</p>
+			<P>　　车妥妥致力于推动绿色出行文化，打造成为消费者首选的中国汽车运输服务品牌，并立志为推动中国绿色的汽车运输产业发展而努力。车妥妥颠覆传统的车辆运输模式、自驾旅游模式，异地租车模式，为客户提供了安全、快速、便捷的全新汽车运输服务。</P>
+			<p>&nbsp;</p>
+			<P>　　我们相信，安全可以很简单。车妥妥本着服务客户，降低国内道路车流压力，事故风险发生概率为己任。</P>
+			<p>&nbsp;</p>
+			<P>　　我们相信，高效可以很简单，车妥妥在中国大陆各主要城市及旅游地区建立人才招聘，以及7*24小时的送、接车和配套服务，不仅可以随时随地满足客户出行的服务需求，更可为客户的安全行车保驾护航。</P>
+			<p>&nbsp;</p>
+			<P>    我们坚信只有专业才能立足，只有真诚才有客户，只有奉献才能发展。我们相信专业的团队、精诚合作是企业最宝贵的财富。安达汇聚了一批汽车托运业务方面的精兵强将，是一支集合了管理、运输、运营等多领域的实战型精英团队，通过科学严密的运行体系和流程，本着敬业的企业精神，以达到公司全员共同的目标!</P>
+			<p>&nbsp;</p>
+		</div>
+		<div class="noty1" id="noty1_b" style="display: none;">
+			<P align=center>&nbsp;</P>
+<P align=center><STRONG><FONT size=4>车妥妥取消预订</FONT></STRONG></P>
+<P align=center>&nbsp;</P>
+<P>　<STRONG>　1. 取消时间</STRONG></P>
+<P>　　a) 用户可以在早于行程开始2小时前的时段内无责取消预订，用户的预付款项将在3—7个工作日内返回原账户，但交纳保险费(如已发生)恕无法退还。</P>
+<P>　　b) 在晚于行程开始前2小时到司机提车前的时段内取消预订，取消方应向守约方支付违约金，违约金的数额为50元/单，同时，向宝驾平台交纳保险费(如已发生)</P>
+<P>　　c) 对于拒付支付违约金及保险费用的用户，宝驾平台有权取消其会员资格，并享有索赔权</P>
+<P>　　d) 若行程已经开始，无正当理由，取消订单，需要协商确定车辆停靠位置，并支付实际发生的费用。</P>
+<P>　　<STRONG>2. 其他取消规则</STRONG></P>
+<P>　　a) 有平台信息录入错误导致订单取消，则由平台向用户提供相应赔偿;</P>
+<P>　　b) 所有取消违约金下限为100元(不足100元按100元计)</P>
+<P>　　c) 车妥妥将不对任何由于用户个人原因导致运输问题承担责任</P>
+		</div>
+		<div class="noty1" id="noty1_c" style="display: none;">
+		<P align=center>&nbsp;</P>
+<P align=center><FONT size=4><STRONG>运输商品车服务协议</STRONG></FONT></P>
+<P align=center>&nbsp;</P>
+<P>　　依据相关法律规定，双方本着平等、自愿、公平之原则，经充分协商，就乙方向甲方提供运输乘用车服务事项达成一致，为保障双方的利益，特达成如下协议：</P>
+<P><STRONG>　　一、甲方的权利、义务</STRONG></P>
+<P>　　1.甲方应认真、准确填写本单，确保所交运的车辆不涉及盗抢、套牌、走私等涉案不合法车辆，并能提供证明该车辆的合法来源，使其适合运输。</P>
+<P>　　2.甲方应在乙方客户端准确写明收车人的名称或者姓名或者凭指定的收车人，车辆的品牌、型号、收车地点等有关车辆运输的必要情况。因甲方填写不实或遗漏重要情况，造成乙方损失的，甲方应当承担损害赔偿责任。</P>
+<P>　　3.甲方应确保所托运的车辆内严禁携带易燃、易爆、易腐蚀、放射性以及国家法律明文规定的各种管制刀具、枪械、毒品等物品。</P>
+<P>　　4.甲方在车内放置的物品(≤200kg)需确保车辆车窗、车门、后备箱能正常关闭，并确保能安全装卸上下车，但不确保所搭载的物品不影响视线。</P>
+<P>　　5.甲方在乙方将运输车辆交于收车人之前，甲方可以要求乙方中止运输、返还运输车辆、变更到达地或者将运输车辆交给其他收车人，但应赔偿乙方因此遭受到的损失。</P>
+<P>　　6.甲方可以在托运车辆期间随时查询车辆在运输途中的状态，但必须是乙方的工作期间内。</P>
+<P>　　7.甲方必须按照双方约定的期限结算该次运输的相关费用，甲方可以对乙方的工作提出建议，乙方接受并及时改正。</P>
+<P>　　8.甲方若变更收车人信息，应及时通知乙方，并将收车人的身份证号和联系方式一并告知，同时视为授权乙方在电子合同单上修改收车人信息。</P>
+<P><STRONG>　　二、乙方的权利、义务</STRONG></P>
+<P>　　1.乙方应认真、准确填写《车妥妥服务合同单》，并按照协议内容及时运输并准时完成运输事宜。</P>
+<P>　　2.乙方在甲方确认托运后，给甲方提供一份不填有车辆实际情况的《车妥妥服务合同单》(不视为完整合同)。乙方所派遣工作人员现场拍照验车后提供验车单，验车单与合同单共同组成一份完整合同，具有相应的法律效力。</P>
+<P>　　3. 甲乙双方根据国家相关规定负有投保义务，甲方可自行投保或委托乙方代为投保，投保额度为车辆的市场销售价格或当前车辆估值投保，甲方投保不足的，如遇任何意外所造成的经济损失，承运方按保险公司投保比例的相关规定予以赔偿。</P>
+<P>　　4.乙方有权检查被运输车辆的合法性，并核对收车人的身份证等合法有效的证件。</P>
+<P>　　5.乙方有义务保证被运输的车辆在运输过程中不得被其他单位或个人使用，并有义务为甲方提供车辆在运输过程中状态信息的查询服务。</P>
+<P>　　6.车辆抵达目的地时，乙方应及时通知收车人提车并验车。若收车人因故迟来，乙方工作人员所产生的正常支出由甲方承担。</P>
+<P>　　7.乙方及时将车辆运输至甲方指定地点，甲方或指定收车人未能及时支付乙方运输的相关费用，乙方有权根据《中华人民共和国合同法》第三百一十五条行使留置权。</P>
+<P>　　8.乙方对运输过程中车辆的毁损、灭失承担损害赔偿责任，但乙方证明车辆的毁损、灭失是因不可抗力、车辆本身的自然性质或者合理损耗的，乙方不承担赔偿责任。</P>
+<P>　　9.乙方在验车或运输时发现甲方车内放置有易燃、易爆、易腐蚀、放射性等物品，乙方可以拒绝运输，也可以采取相应措施避免损失的发生，因此产生的费用由甲方负担。</P>
+<P>　　10.收车人已按规定接受车辆，乙方交车人员已离开现场，时候发现车辆有损或者随车物品缺失的，乙方不负任何法律责任。</P>
+<P><STRONG>　　三、保密条款</STRONG></P>
+<P>　　1.甲、乙双方从对方获取的资料和相关的商业机密、无需公开的信息等，双方负有保密义务，并应采取一切合法的措施以使其所接受的资料免于被无关人员接触。</P>
+<P>　　2.此信息仅供委托人使用，如果不是预期的委托人，特此声明，对于本承运单的复印、印刷等任何形式使用或依此产生的任何行动都是严格禁止和无效的。</P>
+<P>　<STRONG>　四、保险条款</STRONG></P>
+<P>　　车辆运输的保险由太平洋、中国平安、中国人民财产保险等公司全程承保，保险金额为车辆实际价格，最高不超过市场的销售价格或当前车辆估值。</P>
+<P><STRONG>　　五、责任索赔</STRONG></P>
+<P>　　1.车辆运达目的地并经接收方签字前，若甲方已经自行办理的运输保险或者委托乙方代办运输保险，因运输原因导致甲方车辆出现划痕、碰撞、弯曲、开裂等现象，保险公司承担责任，乙方不承担责任但有义务协助甲方向保险公司提出车辆实际的申报向保险公司索要赔偿，但运费不免。</P>
+<P>　　2.车辆一旦发生划痕、碰撞等现象，乙方将负责车辆维修，但维修费用最高不超过甲方支付给乙方的运费2倍(运输费用全额付清给乙方后在进行维修)。</P>
+<P><STRONG>　　六、其他</STRONG></P>
+<P>　　1.本协议签署以用户客户端确认为准，用户使用客户端操作视为同意我公司电子签约协议，在客户端的所有操作视同本人实际操作并承担相应责任。</P>
+<P>　　2.任何一方欲解除运输合同，必须提前通知对方。运输结束后，合同自然解除。协议解除后尚有待结运费的，甲方在接到结算通知后5日内结清。</P>
+<P>　　3.甲、乙双方在履行过程中发生任何争议应及时沟通解决，如不能协商解决的可向北京市顺义区人民法院提起诉讼。</P>
+		</div>
+		<div class="noty2">
+			<div class="eek71">
+			  <p>
+				<span class="on"><label><input type="checkbox" name="dfd" value="1"/></label></span><a>同意《运输说明》</a>
+				<button type="button" onclick="confirm()">确定</button>
+			  </p>
+
+			</div>
+		</div>
+   </div>
+ </div>
+ <script type="text/javascript">
+ $(".eek71 button").click(function(){
+		$('.den0').hide();
+		$('.bg').hide();
+});
+
+$(".eek71 span").click(function(){
+	   if($(this).hasClass('on')){
+			$(this).removeClass('on');
+	   }else{
+			$(this).addClass("on");
+	   }
+	});
+//运输/退款/fw
+function ystkfw(title,mark){
+	$(".den1 h2").html(title);
+	$("#kkk").html(title);
+	if(mark=="A"){
+		$("#noty1_a").show();
+		$("#noty1_b").hide();
+		$("#noty1_c").hide();
+		$("#bg").show();
+		$(".den0").show();
+	}else if(mark=="B"){
+		$("#noty1_a").hide();
+		$("#noty1_b").show();
+		$("#noty1_c").hide();
+		$("#bg").show();
+		$(".den0").show();
+	}else if(mark=="C"){
+		$("#noty1_a").hide();
+		$("#noty1_b").hide();
+		$("#noty1_c").show();
+		$("#bg").show();
+		$(".den0").show();
+	}
+}
+function confirm(){
+	$("#bg").hide();
+	$(".den0").hide();
+ } 
+</script>
+</body></html>

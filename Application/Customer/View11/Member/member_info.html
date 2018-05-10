@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=0.6,user-scalable=no">
+<title>个人中心</title>
+<!-- Bootstrap core CSS -->
+<link href="__EXWX__/style/bootstrap.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]><script src="../../assets/__EXWX__/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.__EXWX__/js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="__EXWX__/style/style.css" rel="stylesheet" type="text/css">
+<link href="__EXWX__/style/style480.css" rel="stylesheet" type="text/css">
+<link href="__EXWX__/style/style320.css" rel="stylesheet" type="text/css">
+
+
+<script src="__EXWX__/js/jquery-1.js"></script>
+<script src="__EXWX__/js/bootstrap.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="__EXWX__/js/jquery.SuperSlide.js"></script>
+<script src="__JS__/jquerytool_1.0v.js"></script>
+<body>
+
+
+<!--content-->
+<div class="wcenter0">
+ <div class="wcenter01">
+   <div class="wcentera">
+  <h2><img src="{$info.headimgurl}"></h2>
+   <p>{$ret['user_name']}</p>
+   </div>
+   <form action="" method="post" id="dffbd">
+   <div class="bin0">
+
+   
+     <div class="bin30">
+    <div class="bin31">
+	<dl><dt><img src="__EXWX__/images/bb1.png">姓名：</dt><dd><input type="text" name="user_name" id="user_name" value="{$ret['user_name']}"></dd></dl>
+	</div>
+	<if condition="$ret.sex eq '男'">
+		<div class="bin32">
+		<dl><dt><img src="__EXWX__/images/bb2.png">性别：</dt><dd>
+		 <div class="sex1" data='男'><span class="on"></span>男</div> 
+		 <div class="sex1" data='女'><span></span>女</div>
+		</dd></dl>
+		</div>
+	<else />
+		<div class="bin32">
+		<dl><dt><img src="__EXWX__/images/bb2.png">性别：</dt><dd>
+		 <div class="sex1" data='男'><span></span>男</div> 
+		 <div class="sex1" data='女'><span class="on"></span>女</div>
+		</dd></dl>
+		</div>
+	</if>
+	<input type="hidden" name="sex" id="sex" value="{$ret.sex}">
+	</div>
+	
+	<div class="bin30">
+    <div class="bin31">
+	<dl><dt><img src="__EXWX__/images/bb3.png">手机号：</dt><dd><input type="text" name="by_tel" id="by_tel" value="{$ret['by_tel']}"></dd></dl>
+	</div>
+
+    <div class="bin32">
+	<dl><dt><img src="__EXWX__/images/bb4.png">邮箱地址：</dt><dd><input type="text" name="email" id="email" value="{$ret['email']}"></dd></dl>
+	</div>
+</div>
+<div class="bin30">
+    <div class="bin32">
+	<dl><dt><img src="__EXWX__/images/bb5.png">身份证号：</dt><dd><input type="text" name="identity" id="identity" value="{$ret['identity']}"></dd></dl>
+	</div>
+	</div>
+ </div>
+ </form>
+ </div>
+</div>
+  <div class="wlist2"><button type="button" onclick="queFuns();">修改</button></div>
+<script>
+
+$(".sex1").click(function(){
+$(this).children('span').addClass('on');
+$(this).siblings().children('span').removeClass('on');
+$("#sex").val($(this).attr("data"));
+});
+function queFuns(){
+	var user_name = $('#user_name').val();
+	var sex = $('#sex').val();
+	var by_tel = $('#by_tel').val();
+	var email = $('#email').val();
+	var identity = $('#identity').val();
+	$.post("__MODULE__/Worklwt/memberUpdate",{user_name:user_name,sex:sex,by_tel:by_tel,email:email,identity:identity},function(data){
+		if(data){
+			$.anewAlert('修改成功',0,1,'__MODULE__/Worklwt/memberInfo');
+		}else{
+			$.anewAlert('暂无修改');
+			return false;
+		}
+	},'json');
+	//$('#dffbd').submit();
+}
+
+</script>  
+
+<!--content-->
+
+<!-- 留言框 -->
+
+
+<!--footer-->
+
+</body></html>

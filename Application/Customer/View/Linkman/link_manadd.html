@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=0.6,user-scalable=no">
+<title>添加联系人</title>
+<!-- Bootstrap core CSS -->
+<link href="__EXWX__/style/bootstrap.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]><script src="../../assets/__EXWX__/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.__EXWX__/js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="__EXWX__/style/style.css" rel="stylesheet" type="text/css">
+<link href="__EXWX__/style/style480.css" rel="stylesheet" type="text/css">
+<link href="__EXWX__/style/style320.css" rel="stylesheet" type="text/css">
+
+<script src="__EXWX__/js/jquery-1.js"></script>
+<script src="__EXWX__/js/bootstrap.js"></script>
+<script src="__EXWX__/js/jquery.SuperSlide.js"></script>
+<script src="__JS__/jquerytool_1.0v.js"></script>
+<body style="background:#F2F2F2;">
+
+<!-- <div class="wxnav">
+<a class="get1" href="__MODULE__/Worklwt/topContacts"><</a>
+<h2></h2>
+</div> -->
+<!--content-->
+<div class="wcenter0">
+ <div class="wcenter01">
+ <div class="wlist03">
+  <div class="wlist3">
+   <dl><dt>姓名：</dt><dd><input type="text" id="name" placeholder="需与证件姓名一致" value=""></dd></dl>
+   <dl><dt>手机号：</dt><dd><input type="text" id="tel" placeholder="请输入常用手机号码" value=""></dd></dl>
+   <dl><dt>身份证号：</dt><dd><input type="text" id="idcode" placeholder="请输入身份证号" value=""></dd></dl>
+   <input type="hidden" id="user_code" value="{$ret['user_code']}">
+  </div>
+  </div>   
+  <div class="wlist2"><button type="button" onclick="addFun();">添加</button></div>
+ </div>
+</div>
+<script>
+	function addFun(){
+		var name = $("#name").val();
+		var tel = $("#tel").val();
+		var idcode = $("#idcode").val();
+		var usercode = $("#user_code").val();
+		if(name == ""){
+			$.anewAlert('请填写名称');
+			return false;
+		}
+		if(tel == ""){
+			$.anewAlert('请填写手机号');
+			return false;
+		}
+		if(idcode == ""){
+			$.anewAlert('请填写身份证号');
+			return false;
+		}
+		$.post("__MODULE__/Worklwt/linkManInsert",{name:name,tel:tel,idcode:idcode,user_code:usercode},function(data){
+			if(data){
+				$.anewAlert('添加成功',0,1,'__MODULE__/Worklwt/topContacts');
+			}else{
+				$.anewAlert('添加失败');
+			}
+		},'json');
+	}
+</script>
+<!--content-->
+
+<!-- 留言框 -->
+
+
+<!--footer-->
+
+</body></html>

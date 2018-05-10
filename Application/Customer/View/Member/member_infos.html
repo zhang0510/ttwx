@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=0.6,user-scalable=no">
+<title>个人信息</title>
+<!-- Bootstrap core CSS -->
+<link href="__EXWX__/style/bootstrap.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]><script src="../../assets/__EXWX__/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.__EXWX__/js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="__EXWX__/style/style.css" rel="stylesheet" type="text/css">
+<link href="__EXWX__/style/style480.css" rel="stylesheet" type="text/css">
+<link href="__EXWX__/style/style320.css" rel="stylesheet" type="text/css">
+
+
+<script src="__EXWX__/js/jquery-1.js"></script>
+<script src="__EXWX__/js/bootstrap.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="__EXWX__/js/jquery.SuperSlide.js"></script>
+<script src="__JS__/jquerytool_1.0v.js"></script>
+<body>
+
+<!--content-->
+<div class="wcenter0">
+ <div class="wcenter01">
+   <div class="wcentera">
+  <h2><img src="{$info.headimgurl}"></h2>
+   <p>{$ret['user_name']}</p>
+   </div>
+
+   
+   
+   <form action="" method="post" id="dffbd">
+   <div class="bin0">
+   <div class="bin30">
+	<a href="__MODULE__/Worklwt/member_info"><div class="bin32">
+		<dl><dt><img src="__EXWX__/images/bb1.png">个人信息</dt></dl>
+	</div></a> </div>
+	 <div class="bin30">
+	<a href="__MODULE__/Worklwt/mycoupon_list/code/{$ret.tel}"><div class="bin32">
+		<dl><dt><img src="__EXWX__/images/bb6.png">优惠券</dt></dl>
+	</div></a></div>
+	 <div class="bin30">
+	<a href="__MODULE__/Worklwt/topContacts"><div class="bin32">
+		<dl><dt><img src="__EXWX__/images/bb7.png">常用联系人</dt></dl>
+	</div></a></div>
+	 <div class="bin30">
+	<a onclick="wxClose('{$ret.tel}');"><div class="bin32">
+		<dl><dt><img src="__EXWX__/images/bb8.png">注销</dt></dl>
+	</div></a>
+	</div>
+	</div>
+ </form>
+ </div>
+</div>
+<script>
+$(".sex1").click(function(){
+$(this).children('span').addClass('on');
+$(this).siblings().children('span').removeClass('on');
+$("#sex").val($(this).attr("data"));
+});
+$(document).ready(function(){
+	var url = location.href.split('#')[0];
+	$.post('__MODULE__/Payment/getJsSign',{'url':url},function(data){
+		if(data!=''){
+			wx.config({
+    		    debug:false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    		    appId:data.appId, // 必填，公众号的唯一标识
+    		    timestamp:data.timestamp, // 必填，生成签名的时间戳
+    		    nonceStr:data.nonceStr, // 必填，生成签名的随机串
+    		    signature:data.signature,// 必填，签名，见附录1
+    		    jsApiList: [    // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    		                    //'checkJsApi',
+    		                    //'getLocation'
+								'closeWindow'
+    					   ] 	
+		
+		});
+		}
+	})
+})
+function wxClose(tel){
+	$.post("__MODULE__/Worklwt/cellationWx",{tel:tel},function(data){
+		if(data.flag){
+			wx.closeWindow();
+		}else{
+			$.anewAlert('注销失败');
+			return false;
+		}
+	},'json');
+}
+
+
+</script>  
+
+<!--content-->
+
+<!-- 留言框 -->
+
+
+<!--footer-->
+
+</body></html>

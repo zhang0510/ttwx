@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.6,user-scalable=no"/>
+<title>下单成功</title>
+<!-- Bootstrap core CSS -->
+<link href="__CUSTOMER__/style/bootstrap.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="__CUSTOMER__/style/style.css" rel="stylesheet" type="text/css"/>
+
+<link href="__CUSTOMER__/style/style480.css" rel="stylesheet" type="text/css"/>
+<link href="__CUSTOMER__/style/style320.css" rel="stylesheet" type="text/css"/>
+
+
+<script src="__CUSTOMER__/js/jquery-1.js"></script>
+<script src="__CUSTOMER__/js/bootstrap.js"></script>
+<script src="__JS__/jquerytool_1.0v.js"></script>
+<script src="__JS__/layer/layer.js"></script>
+<script src="__JS__/indexTuo.js"></script>
+
+</head>
+<body>
+
+<div class="wxake50">
+	<div class="wxake4">
+	<div class="olist1">{$info.str}<img class="eq1" src="__CUSTOMER__/images/ee1.png">{$info.end}</div>
+		<p>车型：{$info.order_info_brand} {$info.order_info_type}</p>
+		
+		<p>费用：￥{$info['order_info_zj']/100}</p>
+	</div>
+	
+	 <div class="zz0">
+	    <div class="zz1 on" data="H">
+		<h2><img src="__CUSTOMER__/images/zff1.png">&nbsp;&nbsp;货到付款</h2>
+		</div>
+	    <div class="zz1"  data="W">
+		<h2><img src="__CUSTOMER__/images/zff2.png">&nbsp;&nbsp;微信支付</h2>
+		</div>
+	 
+	 </div>
+	
+	
+	<div style="clear:both;"></div>
+	<div class="ee81"><button type="button" onclick="wxpay();">确认支付</button></div>
+  </div>
+   <form action="__MODULE__/OrderBook/paynow" method="post" id="formSubmit">
+   		<input type="hidden" name="code" value="{$info.order_code}">
+   		<input type="hidden" id="payway" name="payway" value="H">
+   		<input type="hidden" id="fee" name="fee" value="{$info['order_info_zj']/100}">
+   </form>
+<script>
+$(".zz0 .zz1").click(function(){
+$(this).addClass('on').siblings().removeClass('on');
+$("#payway").val($(this).attr('data'));
+
+});
+
+$(document).ready(function(){
+	var url = location.href.split('#')[0];
+	$.post('__MODULE__/Payment/getJsSign',{'url':url},function(data){
+		if(data!=''){
+			wx.config({
+    		    debug:false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    		    appId:data.appId, // 必填，公众号的唯一标识
+    		    timestamp:data.timestamp, // 必填，生成签名的时间戳
+    		    nonceStr:data.nonceStr, // 必填，生成签名的随机串
+    		    signature:data.signature,// 必填，签名，见附录1
+    		    jsApiList: [    // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    		                    //'checkJsApi',
+    		                    //'getLocation'
+								
+    					   ] 	
+		
+		});
+		}
+	})
+})
+//调用微信JS api 支付
+	//alert(1234);
+	function wxpay(){
+		var total = $("#fee").val();
+		//alert(wxpay);
+		//total = total*100;
+		var payway = $("#payway").val();
+		//var token = $("#token_code").val();
+		if(payway=='W'){
+			$.post('__MODULE__/OrderBook/groupOrder',{'payway':payway,'token':token},function(data){
+				if(data.touCode!=''&&data.touCode!=null){
+					if(data.carCount!=0&&data.carCount==data['infoCode'].length){
+						$.post('__MODULE__/Payment/startPay',{'code':data.touCode,'total':total},function(data){
+							if(data!=''){
+								//alert(data.packages);
+								WeixinJSBridge.invoke(
+									'getBrandWCPayRequest',
+										{"appId":data.appid,
+										"timeStamp":data.timeStamp,
+										"nonceStr":data.nonceStr,
+										"package":data.packages,
+										"signType":data.signType,
+										"paySign":data.paySign,
+										},
+									
+									function(res){
+										WeixinJSBridge.log(res.err_msg);
+										//alert(res.err_code+res.err_desc+res.err_msg);
+									}
+								);
+								WeixinJSBridge.call('closeWindow');
+							}else{
+								alert('数据错误03');//03为js支付未进入
+							}
+						});
+					}else{
+						alert('数据错误01');//01为数据写入不全    
+					}
+				}else{
+					alert('数据错误02');//02为数据没写入
+				}
+			});
+		}else{
+			$("#formSubmit").submit();
+		}
+		
+		//var opid = $("#opid").val();
+		//alert(opid);
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=0.6">
+<title>委托合同</title>
+<!-- Bootstrap core CSS -->
+<link href="__EXWX__/style/bootstrap.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]><script src="../../assets/__EXWX__/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.__EXWX__/js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="__EXWX__/style/style.css" rel="stylesheet" type="text/css">
+<link href="__EXWX__/style/style480.css" rel="stylesheet" type="text/css">
+<link href="__EXWX__/style/style320.css" rel="stylesheet" type="text/css">
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="__EXWX__/js/jquery-1.js"></script>
+<script src="__EXWX__/js/bootstrap.js"></script>
+<script src="__JS__/lan.js"></script>
+
+<body>
+<script>
+	window.onscroll = function () {
+		var s = getScrollTop() + getClientHeight();
+		var m = getScrollHeight();
+		//var token = $("#token").val();
+		//var kl = s-m;
+		//alert(s+"|"+m+"----"+kl);
+		if (m==s+1||m<s+1) {
+			//alert(123);
+			moreFuns();
+		}
+	}
+</script>
+
+<!--content-->
+<div class="order_body">
+<div class="order_main container">
+<div class="order_list" id="gerger">
+	<foreach name="oList" item="vo" >
+	<div class="order_lisa">
+		<div class="order_lisa1">
+			<h2><a>订单号：{$vo.order_code}</a></h2>
+			<p>
+			<a>
+				<if condition="($vo.order_status eq 'S')">
+				 待审核
+				<elseif condition="($vo.order_status eq 'A')"/>
+				 待安排
+				<elseif condition="($vo.order_status eq 'Z')"/>
+				 待核实
+				 <elseif condition="($vo.order_status eq 'Y') OR ($vo.order_status eq 'M') OR ($vo.order_status eq 'N') OR ($vo.order_status eq 'B') OR ($vo.order_status eq 'G') OR ($vo.order_status eq 'D')"/>
+				 运输中
+				 <elseif condition="($vo.order_status eq 'W')"/>
+				 已完成
+				 <else /> 
+				--
+				</if>
+			</a>
+			</p>
+		</div>
+		<div class="order_lisa2">
+			<div class="olist1"><if condition="($vo.start_name neq '') and ($vo.start_name neq null)"> {$vo.start_name}<else />--</if> <img class="eq1" src="__FRONT__/images/ee1.png"><img  class="eq2" src="__FRONT__/images/ee2.png"> <if condition="($vo.end_name neq '') and ($vo.end_name neq null)"> {$vo.end_name}<else />--</if></div>
+			<div class="olist2">
+				<p><span>车型：<if condition="($vo.order_info_type neq '') and ($vo.order_info_type neq null)"> {$vo.order_info_type}<else />--</if></span></p>
+			</div>
+		</div>
+		<div class="fraka1">
+			
+			<p><span>提示：</span>位置信息每天（除周日）下午5点左右更新，当天提一般在第二天可以发出。</p>                         
+		</div>
+		  <div class="mlista2">
+		 <h2 class="xinh2">跟踪信息</h2>
+		 <dl>
+		 	
+				<volist name="vo.posit" id="voi">
+				<dt>{$voi.time}    {$voi.cont}</dd>
+				</volist>
+			
+		 				  <div class="bkl1"></div>
+		                  <div class="bkl2"></div>
+		 </dl>
+		</div>
+		
+		
+		
+		
+		
+		
+	</div>
+	</foreach>
+</div>
+	
+</div>
+</div>
+<!--content-->
+<input type="hidden" id="pages" value="2">
+<input type="hidden" id="opid" value="{$opid}">
+<input type="hidden" id='flags' value="{$flag}">
+<input type="hidden" id='marks' value="Y">
+<div id="loading" style="position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.8);text-align:center;z-index:10000;display: none;">
+	<div style="z-index:9999">
+		<img src="__EXWX__/images/loading.gif" style="padding-top:18%;" />
+	</div>
+</div>
+<script>
+function moreFuns(){
+	var marks = $("#marks").val();
+	var flag = $("#flags").val();
+	var pages = $("#pages").val();//分页
+	var opid = $("#opid").val();
+	if(marks == 'Y'){
+		$("#marks").val("N");
+		if(typeof(pages) == undefined || pages == 0 || flag=='N'){
+			$('#loading').hide();
+			return false;
+		}
+		$('#loading').show();
+		$.post("__MODULE__/Worklwt/wx_ajaxfollowUpList",{pages:pages,opid:opid},function(data){
+			var obj = data.list;
+			var size = obj.length;
+			var str = '';
+			for(var i=0;i<size;i++){
+				str +='<div class="order_lisa">';
+				str +='<div class="order_lisa1">';
+				str +='<h2><a href="__MODULE__/Worklwt/orderInfo/code/'+obj[i]['order_code']+'">订单号：'+obj[i]['order_code']+'</a></h2>';
+				str +='<p><a>';
+				if(obj[i]['order_status'] == 'S'){
+					str += '待审核';
+				}else if(obj[i]['order_status'] == 'A'){
+					str += '待安排';
+				}else if(obj[i]['order_status'] == 'Z'){
+					str += '待核实';
+				}else if(obj[i]['order_status'] == 'Y' || obj[i]['order_status'] == 'M'|| obj[i]['order_status'] == 'N'|| obj[i]['order_status'] == 'B'|| obj[i]['order_status'] == 'G' || obj[i]['order_status'] == 'D'){
+					str += '运输中';
+				}else if(obj[i]['order_status'] == 'W'){
+					str += '已完成';
+				}else{
+					str += '暂无数据';
+				}
+				str +='</a></p>';
+				str +='</div>';
+				str +='<div class="order_lisa2">';
+				str +='<div class="olist1">'+obj[i]['start_name']+'<img class="eq1" src="__CUSTOMER__/images/ee1.png"><img  class="eq2" src="__CUSTOMER__/images/ee2.png">'+obj[i]['end_name']+'</div>';
+				str +='<div class="olist2"><p><span>车型：'+obj[i]['order_info_type']+'</span></p></div>';
+				str +='</div>';
+				str +='<div class="fraka1">';
+				str +='<p><span>提示：</span>位置信息每天（除周日）下午5点左右更新，当天提一般在第二天可以发出。</p>';
+				str +='</div>';
+				str +='<div class="mlista2">';
+				str +='<h2  class="xinh2">跟踪信息：</h2>';
+				str +='<dl>';
+				var objs = [];
+				objs = obj[i]['posit']==null||obj[i]['posit']==undefined?objs:obj[i]['posit'];
+				var num = objs.length;
+				for(var j=0;j<num;j++){
+					str +='<dt>'+objs[j]['time']+'    '+objs[j]['cont']+'</dt>';
+				}
+				str +='<div class="bkl1"></div><div class="bkl2"></div></dl>';
+				str +='</div>';
+				str +='</div>';
+			}
+			$('#gerger').append(str);
+			$("#marks").val("Y");
+			if(data.flag == 'Y'){
+				$("#pages").val(parseInt(pages)+1);
+				$('#loading').hide();
+			}else{
+				$('#loading').hide();
+				$("#pages").val(0);
+				$('#flags').val(data.flag);
+			}
+		},'json');
+	}
+
+}
+</script>
+</body></html>

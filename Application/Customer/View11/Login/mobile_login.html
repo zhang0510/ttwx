@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=0.6,user-scalable=no">
+<title>登录</title>
+<!-- Bootstrap core CSS -->
+<link href="__CUSTOMER__/style/bootstrap.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="__CUSTOMER__/style/style.css" rel="stylesheet" type="text/css">
+<link href="__CUSTOMER__/style/style480.css" rel="stylesheet" type="text/css">
+<link href="__CUSTOMER__/style/style320.css" rel="stylesheet" type="text/css">
+
+
+<script src="__CUSTOMER__/js/jquery-1.js"></script>
+<script src="__CUSTOMER__/js/bootstrap.js"></script>
+<script src="__CUSTOMER__/js/jquery.SuperSlide.js"></script>
+<script src="__JS__/jquerytool_1.0v.js"></script>
+ <style>
+ body,html{height:100%;width:100%;overflow:hidden;}
+ </style>
+<body >
+
+<!--content-->
+<div class="dengm">
+ <div class="deng0">
+   <div class="deng1">
+   <!--  <h2><img src="images/wq4.png"></h2> -->
+   </div>
+   <input type="hidden" id="SMS_VCode" name="SMS_VCode" value="">
+   <input type="hidden" id="opid_s" name="opid_s" value="{$opid}">
+   <input type="hidden" id="urls" name="urls" value="{$urls}">
+   <div class="deng2" style="padding:0px;">
+     <div class="deng2bo">
+	   <div class="deng2b1">
+	    <dl><dt>手机号</dt>
+		<dd  class="fh1"><input id="tel" name="tel" type="text" class="txt1"/></dd>
+		</dl>
+	    <dl>
+	    	<dt>输入验证码</dt>
+	    	<dd ><input id="VCode" name="VCode" type="text" class="txt2" placeholder="请输入验证码" />
+	    	<span id="captcha-container" class="txt3"><img src="{:U('Login/verify_c',array())}" onclick="verify_img()"/></span>
+	    	</dd>
+	    </dl>
+		<dl>
+			<dt>短信验证码</dt>
+			<dd><input type="text"  id="SM_VCode" name="SM_VCode" class="txt2" placeholder="请输入短信验证码"/>
+			<input id="SMbtn" name="SMbtn" type="button" value="获取验证码" class="txt6" onclick="SM_Check()" />
+			</dd>
+		</dl>
+		<div class="txt4"><input type="button" value="登录" onclick="Login_Check()"/></div>
+	 </div>
+	 <div class="deng2b2">
+	 </div>
+	 </div>
+   </div>
+ </div>
+</div>
+
+<!--content-->
+<!-- 留言框 -->
+<script>
+//手机动态验证码等待60秒
+var count = 60;
+//验证码
+function verify_img(){ 
+	var captcha_img = $('#captcha-container').find('img'); 
+	captcha_img.attr("src", '__MODULE__/Login/verify_c?random='+Math.random());
+};
+
+//发送短信验证
+function SM_Check(){
+	var tel=$('#tel').val();							//手机号
+	var VCode=$('#VCode').val();	//验证码
+	//验证手机号
+	if(tel==""){
+		$.anewAlert("请输入手机号");	
+		return false;
+	}else if(!$.check_Mobile(tel)){
+		$.anewAlert("请输入正确的手机号");	
+		return false;
+	}
+	if(VCode==""){
+		$.anewAlert("请输入验证码");	
+		return false;
+	}
+	$.post('__MODULE__/Login/tel_SMS',{'tel':tel,"VCode":VCode},function(data){
+		if(data.massion){
+			//手机动态验证码等待60秒
+			var tmrid= setInterval("setvalue()", 1000);
+			event.cancelBubble=true
+			document.getElementById("SMS_VCode").value=data.code;
+		}else{
+			$.anewAlert("短信验证码发送失败~");
+		}
+	})
+}
+//登录
+function Login_Check(){
+	var tel		 =$('#tel').val().trim();
+	var VCode	 =$('#VCode').val().trim();
+	var SM_VCode =$('#SM_VCode').val().trim();
+	var SMS_VCode=$('#SMS_VCode').val().trim();
+	var opid = $('#opid_s').val();
+	var urls = $('#urls').val();
+	//验证手机号 check_Mobile
+	if(tel==""){
+		$.anewAlert("请输入手机号");	
+		return false;
+	}else if(!$.check_Mobile(tel)){
+		$.anewAlert("请输入正确的手机号");	
+		return false;
+	}
+	
+	//验证验证码
+	if(VCode==""){
+		$.anewAlert("请输入验证码");	
+		return false;
+	}
+	
+	//验证短信验证码
+	if(SM_VCode==""){
+		$.anewAlert("请输入短信验证码");
+		return false;
+	}
+	//提交
+	$.post('__MODULE__/Login/mobile_Login_Verify',{'tel':tel,'VCode':VCode,'SM_VCode':SM_VCode,'SMS_VCode':SMS_VCode,'opid':opid},function(data){
+		if(data.type==0){
+			$.anewAlert(data.info);
+		}else{
+			window.location.href = "__MODULE__/"+urls+'/opid/'+opid;
+		}
+	})
+}
+
+//手机动态验证码等待60秒
+function setvalue()
+{
+    var btn = document.getElementById("SMbtn");
+    if (count > 0) {
+        btn.value = "等待" + count + "秒";
+        count--;
+        btn.disabled = true;
+    }
+    else {
+        btn.value = "获取验证码"
+        clearInterval("tmrid");
+        btn.disabled = false;
+    }
+}
+</script>
+<!--footer-->
+
+</body></html>
