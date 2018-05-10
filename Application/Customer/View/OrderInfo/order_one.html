@@ -15,8 +15,8 @@
   <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <link href="__CUSTOMER__/style/style.css" rel="stylesheet" type="text/css"/>
-<link href="__CUSTOMER__/style/style480.css" rel="stylesheet" type="text/css"/>
-<link href="__CUSTOMER__/style/style320.css" rel="stylesheet" type="text/css"/>
+<link href="__CUSTOMER__/style/style480.css?t=0.1" rel="stylesheet" type="text/css"/>
+<link href="__CUSTOMER__/style/style320.css?t=0.1" rel="stylesheet" type="text/css"/>
 
 
 <script src="__CUSTOMER__/js/jquery-1.js"></script>
@@ -31,10 +31,6 @@
 <!--content-->
 <div class="wcenter0">
  <div class="wcenter01">
-   <div class="bang">
-<img src="__CUSTOMER__/images/we3.jpg"/>
-
-   </div>
    <div class="bin3">
    
    <div class="bin1a">
@@ -49,21 +45,36 @@
 		<dd id="gan11"><input type="text" value="" id="mudidiname" readonly="readonly"/><a class="gan1 gan11"></a></dd>
 	</dl>
 	</div>
-    <div class="bin1a">
+    <div class="bin1a" style="display: none">
 	<dl><dt class="bjk3">品牌车型 &nbsp;</dt><dd id="gan111"><input type="text" value="" readonly="readonly" id="pinpainame" /><a class="gan1 gan111" ></a></dd></dl>
 	<input type="hidden" class="txt1a inko" id="type_cityarea_id"/>
 	</div>
-	<div class="mn1">费用：￥<span id="ttotla">0</span></div>
+	<div class="mn1">
+		<div style="width:166px;margin: auto;">
+			<center>费用：￥<span id="ttotla">0</span></center>
+		</div>
+	</div>
 	
    	<div class="wxdd1">
 		
-		<button type="button" class="wxdd2" onclick="return orderNext();">确定下单</button>
+		<button type="button" class="wxdd2" onclick="return orderNext();">立即下单</button>
 	</div>
 	<div class="wxdd11">
 	<button type="button" class="" onclick="clearAll();">重置</button>
 	 </div>
  </div>
  </div>
+ <div class="fwlcdiv">
+	 <div class="fwlc1">
+		 <img src="/Public/Customer/images/xiaoche.png"><font>&nbsp;服务流程&nbsp;</font><img src="/Public/Customer/images/xiaoche.png">
+	 </div>
+	<img src="/Public/Customer/images/HEARTONFIRE1.png" class="lcimg">
+ </div>
+</div>
+<div class="dicall">
+	<div class="dicall1">
+		<font>咨询电话：<span class="callspan">400-877-1107</span></font>
+	</div>
 </div>
   <!-- <div class="wlist2"><button type="button" onclick="return orderNext();">确定下单</button></div> -->
 <script>
@@ -166,8 +177,8 @@ function closediv(){
    <input type="hidden" name="chufa_name" id="chufa_name"/>
    <input type="hidden" name="mudi" id="mudi"/>
    <input type="hidden" name="mudi_name" id="mudi_name"/>
-   <input type="hidden" name="pinpai" id="pinpai"/>
-   <input type="hidden" name="pinpai_name" id="pinpai_name"/>
+   <input type="hidden" name="pinpai" id="pinpai" value="200" />
+   <input type="hidden" name="pinpai_name" id="pinpai_name" value="阿尔法罗米欧-ALFA 156"/>
     <!-- 运费 -->
 	<input type="hidden" name="lineprice" id="lineprice" value="0" />
 	<!-- 类型 -->

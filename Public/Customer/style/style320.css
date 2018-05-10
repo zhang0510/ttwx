@@ -25,7 +25,7 @@
 .mm1a h2{margin:0px 0px 0px 20px;background:url(../images/wq6.png) no-repeat 0px center;float:left;line-height:90px;text-indent:70px;}
 .mm1b h2{margin:0px 0px 0px 20px;background:url(../images/wq7.png) no-repeat 0px center;float:left;line-height:90px;text-indent:70px;}
 .mm1c h2{margin:0px 0px 0px 20px;background:url(../images/wq8.png) no-repeat 0px center;float:left;line-height:90px;text-indent:70px;}
-.wcenter01{overflow:hidden;}
+.wcenter01{overflow:hidden;border-bottom: 1px solid #eee;}
 .wcenterb .mm1 span{display:inline-block;float:right;margin-right:20px;width:30px;background:url(../images/wq9.png) no-repeat 0px center;height:90px;}
 .mm1d{line-height:90px;color:#E90B18;font-size:22px;padding-left:20px;}
 
@@ -96,9 +96,9 @@ h2{margin:0px;}
 
 
 
-.bin3{padding:0px 0px 120px 0px;}
+.bin3{padding:0px 0px 20px 0px;}
 .bin1a{height:90px;margin-bottom:20px;background:#fff;padding:0px 20px;position:relative;}
-.bin1a dl dt{float:left;font-size:30px;color:#333;font-weight:400;line-height:90px;}
+.bin1a dl dt{float:left;font-size:20px;color:#333;font-weight:400;line-height:90px;}
 .bin1a dl dd input{display:block;line-height:48px;padding:20px 20px 20px 0px;font-size:28px;color:#666;border:0px;width:60%;}
 .bin1a dl dd{height:90px;}
 .bin1a dl dt.bjk1{background:url(../images/we3.png) no-repeat 0px center;padding-left:50px;}
@@ -1149,5 +1149,25 @@ body{position:relative;}
 
 .new1x{padding:40px 0px 20px;text-align:left;}
 .new1x h2{text-indent:40px;line-height:55px;font-size:30px;color:#27AD61;font-weight:400;margin:0px;background:url(../images/tuan2.png) no-repeat 0px center;}
+
+.fwlcdiv{width:95%;margin:auto;padding-top: 30px;padding-bottom: 50px;}
+.lcimg{width: 100%;}
+.fwlc1{width:180px;margin: auto;margin-bottom: 35px;}
+.fwlc1 font{font-size: 24px}
+.dicall{position: fixed;bottom:16px;width:100%}
+.dicall1{width: 303px;margin: auto;}
+.dicall1 font{font-size:24px;}
+.callspan{color: #ff8000}
+
+    .wxdd1{width:100%;text-align:center;}
+    .wxdd1 .wxdd1{width:66px;background:#FFF;border:0px;margin-right:15px;}
+    .wxdd1 .wxdd1 img{max-width:100%;}
+    .wxdd1 .wxdd2{position:relative;width:90%;text-align:center;padding:15px 0px;color:#FFF;font-size:22px;background:#ff8000;border:0px;margin-top:20px;border-radius: 10px;}
+
+    .wxdd11 button{display:block;width:90%;margin:0 auto; font-size: 20px;
+        padding: 10px 0;border:0;background:none;font-weight: 800;}
+
+    .mn1{line-height:60px;margin:20px 0px 0px;background:#fff;font-size:26px;color:#333;font-weight:400;}
+    .wcenter0{margin:20px;background-color: #ffffff}
 
 }
