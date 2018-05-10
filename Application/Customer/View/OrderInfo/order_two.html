@@ -26,8 +26,6 @@
 </head>
 <body>
 
-
-
 <!--content-->
 <!--content-->
 <div class="dengm2">
@@ -39,7 +37,10 @@
 			<div class="pp80">
 			<div class="pp8">
 				<div class="wxdd3">
-					<h2>车型：</h2><h3>{$data.order_info_brand}--{$data.order_info_type}</h3>
+					<div class="bin1a" style="padding: 0px 0px;">
+						<dl style="border-bottom: 0px"><dt>品牌车型 &nbsp;</dt><dd id="gan111"><input type="text" value="{$data.order_info_brand}--{$data.order_info_type}" readonly="readonly" id="pinpainame" /><a class="gan1 gan111" ></a></dd></dl>
+						<input type="hidden" class="txt1a inko" id="type_cityarea_id"/>
+					</div>
 				</div>
 				<div class="wxdd3">
 					<h2>运费：</h2><h3><b id="totelz">{$data.totalz}</b>元</h3>
@@ -72,6 +73,8 @@
 	</div>
 </div>
 <form action="__MODULE__/OrderBook/groupThree" method="post" id="form_group_two_id">
+		<input type="hidden" name="pinpai" id="pinpai" value="200" />
+		<input type="hidden" name="pinpai_name" id="pinpai_name" value="阿尔法罗米欧-ALFA 156"/>
 		<!-- 车价 -->
 		<input type="hidden" name="order_info_price" id="order_info_price" value='0' />
 		<!-- 保价 -->
@@ -80,8 +83,84 @@
 </form>
 
 
+<div id="bg0" class="bg1"></div>
+<div id="area0" class="area0">
+	<div class="area1"><h2>请选择<a onclick="closediv();">X</a></h2></div>
+	<div class="area2">
+		<div class="area21">
+			<ul id="pinpai_id" style="display: none;">
+				<foreach name="brand" item="vo">
+					<li data-id="1" onclick="getCityz('{$vo.cxjj_id}','M','{$vo.cxjj_brand}')">{$vo.cxjj_brand}</li>
+				</foreach>
+			</ul>
+		</div>
+
+		<div class="area22">
+
+		</div>
+		<div class="area23">
+			<ul>
+			</ul>
+		</div>
+	</div>
+</div>
+
+
 <!--content-->
 <script>
+//打开选择
+$("#gan111").click(function(){
+	$("#signmark").val("M");
+	$(".area22").html('');
+	$(".area23").find('ul').html('');
+	$("#pinpai_id").show();
+	$(".area0,.bg1").show();
+});
+//车品牌
+function getCityz(pid,sign,name){
+    $("#signmark").val(sign);
+	$("#pinpai").val('');
+	$("#pinpai").val(pid);
+	$("#pinpai_name").val('');
+	$("#pinpai_name").val(name);
+	$.post('__MODULE__/OrderBook/getType',{'pid':pid},function(data){
+		var num = data.length;
+		var str = '';
+		for(var i=0;i<num;i++){
+			if(sign=='M'){
+				str += '<li onclick="closeFz(\''+data[i]['cxjj_id']+'\',\'M\',\''+data[i]['cxjj_brand']+'\');">'+data[i]['cxjj_brand']+'</li>';
+			}
+		}
+		$(".area22").html('');//.find('ul')
+		$(".area22").html('<ul>'+str+'</ul><div style="height:1000px;"></div>');
+		$(".area22").show();
+	});
+}
+//车型
+function closeFz(pid,sign,name){
+    $(".area0,.bg1").hide();
+	var pinpai = $("#pinpai").val();
+	$("#pinpai").val('');
+	$("#pinpai").val(pid);
+	var pinpai_name = $("#pinpai_name").val();
+	$("#pinpai_name").val('');
+	$("#pinpai_name").val(pinpai_name+'-'+name);
+	$("#pinpainame").val(pinpai_name+'-'+name);
+	$(".area0,.bg1").hide();
+	$(".area23").find('ul').html('');
+	$(".area22").html('');
+}
+//关闭选择
+function closediv(){
+    var signmark = $("#signmark").val();
+	$("#pinpai").val("");
+	$("#pinpai_name").val("");
+	$("#pinpainame").val("");
+    $(".area0,.bg1").hide();
+    $(".area22").html('');
+    $(".area23").find('ul').html('');
+}
+
 //保费查询
 function baojia(){
 	var car_baojia = $("#car_baojia").val();

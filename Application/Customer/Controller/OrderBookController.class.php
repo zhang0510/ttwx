@@ -98,9 +98,12 @@ class OrderBookController extends BaseController {
 	        $data['order_info_margin'] =I("maoliz");
 	        $data['chufa_name'] =I("chufa_name");
 	        $data['mudi_name'] =I("mudi_name");
+
 	        $code = md5($userInfo['user_code']);
 	        S($code,$data);
 	        //dump($data);die();
+            $brand = get_brand();
+            $this->assign("brand",$brand);
 	        $this->assign("data",$data);
 	        $this->assign("name1",explode("-",$data['chufa_name'])[1]);
 	        $this->assign("name2",explode("-",$data['mudi_name'])[1]);
@@ -158,6 +161,9 @@ class OrderBookController extends BaseController {
 	 	$data['flag'] = I("flag");
 	 	$data['order_info_bxd'] = I("order_info_bxd");
 	 	$data['order_info_price'] = I("order_info_price");
+	 	$pinpai = I("pinpai_name");//品牌
+	 	$data['order_info_brand'] = explode('-',$pinpai)[0];
+	 	$data['order_info_type'] = explode('-',$pinpai)[1];
 	 	//$data['totalz'] = $data['totalz'] + $data['order_info_bxd'];
 	 	$gbObj = D("GroupBuy");
 	 	$linkList = $gbObj->getGroupAddCommon($userInfo['user_code']);//当前用户的常用联系人
