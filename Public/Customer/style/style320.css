@@ -101,8 +101,8 @@ h2{margin:0px;}
 .bin1a dl dt{float:left;font-size:20px;color:#333;font-weight:400;line-height:90px;}
 .bin1a dl dd input{display:block;line-height:48px;padding:20px 20px 20px 0px;font-size:28px;color:#666;border:0px;width:60%;}
 .bin1a dl dd{height:90px;}
-.bin1a dl dt.bjk1{background:url(../images/we3.png) no-repeat 0px center;padding-left:50px;}
-.bin1a dl dt.bjk2{background:url(../images/we4.png) no-repeat 0px center;padding-left:50px;}
+.bin1a dl dt.bjk1{background:url(../images/we3.png?t=0.1) no-repeat 0px center;padding-left:50px;}
+.bin1a dl dt.bjk2{background:url(../images/we4.png?t=0.1) no-repeat 0px center;padding-left:50px;}
 .bin1a dl dt.bjk3{background:url(../images/we5.png) no-repeat 0px center;padding-left:50px;}
 .gan1{position:absolute;right:0px;top:0px;height:90px;width:40px;display:block;background:url(../images/we6.png) no-repeat 0px center;}
 .bg1 {
