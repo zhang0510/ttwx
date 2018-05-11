@@ -122,7 +122,7 @@ class PaymentController extends BaseController {
      * 传入参数 支付操作(用于jsapi 在支付页面进行ajax调用)
      */
     public function startPay(){
-        $opid = $opid == ''?session('openid'):$opid;
+        $opid = session('openid');
         $code = I('post.code');
         $total = I('post.total');
 		$total = $total*100;

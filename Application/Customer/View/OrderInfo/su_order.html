@@ -41,10 +41,11 @@
 	    <div class="zz1 on" data="H">
 		<h2><img src="__CUSTOMER__/images/zff1.png">&nbsp;&nbsp;货到付款</h2>
 		</div>
-	    <div class="zz1"  data="W">
-		<h2><img src="__CUSTOMER__/images/zff2.png">&nbsp;&nbsp;微信支付</h2>
-		</div>
-	 
+		 <if condition="$info.user_code eq '18514430012'">
+			<div class="zz1"  data="W">
+			<h2><img src="__CUSTOMER__/images/zff2.png">&nbsp;&nbsp;微信支付</h2>
+			</div>
+		 </if>
 	 </div>
 	
 	
@@ -52,10 +53,11 @@
 	<div class="ee81"><button type="button" onclick="wxpay();">确认支付</button></div>
   </div>
    <form action="__MODULE__/OrderBook/paynow" method="post" id="formSubmit">
-   		<input type="hidden" name="code" value="{$info.order_code}">
+   		<input type="hidden" id="code" name="code" value="{$info.order_code}">
    		<input type="hidden" id="payway" name="payway" value="H">
    		<input type="hidden" id="fee" name="fee" value="{$info['order_info_zj']/100}">
    </form>
+	<input type="hidden" id="token_code" value="{$token}">
 <script>
 $(".zz0 .zz1").click(function(){
 $(this).addClass('on').siblings().removeClass('on');
@@ -85,53 +87,41 @@ $(document).ready(function(){
 })
 //调用微信JS api 支付
 	//alert(1234);
-	function wxpay(){
-		var total = $("#fee").val();
-		//alert(wxpay);
-		//total = total*100;
-		var payway = $("#payway").val();
-		//var token = $("#token_code").val();
-		if(payway=='W'){
-			$.post('__MODULE__/OrderBook/groupOrder',{'payway':payway,'token':token},function(data){
-				if(data.touCode!=''&&data.touCode!=null){
-					if(data.carCount!=0&&data.carCount==data['infoCode'].length){
-						$.post('__MODULE__/Payment/startPay',{'code':data.touCode,'total':total},function(data){
-							if(data!=''){
-								//alert(data.packages);
-								WeixinJSBridge.invoke(
-									'getBrandWCPayRequest',
-										{"appId":data.appid,
-										"timeStamp":data.timeStamp,
-										"nonceStr":data.nonceStr,
-										"package":data.packages,
-										"signType":data.signType,
-										"paySign":data.paySign,
-										},
-									
-									function(res){
-										WeixinJSBridge.log(res.err_msg);
-										//alert(res.err_code+res.err_desc+res.err_msg);
-									}
-								);
-								WeixinJSBridge.call('closeWindow');
-							}else{
-								alert('数据错误03');//03为js支付未进入
-							}
-						});
-					}else{
-						alert('数据错误01');//01为数据写入不全    
-					}
-				}else{
-					alert('数据错误02');//02为数据没写入
-				}
-			});
-		}else{
-			$("#formSubmit").submit();
-		}
-		
-		//var opid = $("#opid").val();
-		//alert(opid);
-	}
+function wxpay(){
+    var code = $("#code").val();
+    var payway = $("#payway").val();
+    if(payway=='W'){
+        $.post('__MODULE__/OrderBook/groupOrder',{'code':code},function(data){
+            if(data.flag){
+                $.post('__MODULE__/Payment/startPay',{'code':data.code,'total':data.total},function(data){
+                    if(data!=''){
+                        WeixinJSBridge.invoke(
+                            'getBrandWCPayRequest',
+                            {"appId":data.appid,
+                                "timeStamp":data.timeStamp,
+                                "nonceStr":data.nonceStr,
+                                "package":data.packages,
+                                "signType":data.signType,
+                                "paySign":data.paySign,
+                            },
+                            function(res){
+                                WeixinJSBridge.log(res.err_msg);
+                                //alert(res.err_code+res.err_desc+res.err_msg);
+                            }
+                        );
+                        WeixinJSBridge.call('closeWindow');
+                    }else{
+                        alert('数据错误03');//03为js支付未进入
+                    }
+                });
+            }else{
+                alert('下单错误，请重新下单');//02为数据没写入
+            }
+        });
+    }else{
+        $("#formSubmit").submit();
+    }
+}
 </script>
 </body>
 </html>

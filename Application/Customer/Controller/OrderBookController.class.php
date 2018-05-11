@@ -541,4 +541,15 @@ class OrderBookController extends BaseController {
 	     M("order_assistant") ->where($maps)->save($datas);
 	     $this->redirect("Worklwt/myOrder", array('opid' => $opid));
 	 }
+
+	 public function groupOrder(){
+        $code = I("post.code");
+         $maps['order_code'] = array('eq',$code);
+         $order = M("order") ->where($maps)->find();
+         if(!empty($order)){
+             $this->ajaxReturn(array('code'=>$code,'flag'=>true,'total'=>$order['order_info_zj']/100));
+         }else{
+             $this->ajaxReturn(array('flag'=>flase));
+         }
+     }
 }
