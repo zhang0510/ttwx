@@ -15,8 +15,8 @@
   <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <link href="__CUSTOMER__/style/style.css" rel="stylesheet" type="text/css"/>
-<link href="__CUSTOMER__/style/style480.css?t=0.1" rel="stylesheet" type="text/css"/>
-<link href="__CUSTOMER__/style/style320.css?t=0.1" rel="stylesheet" type="text/css"/>
+<link href="__CUSTOMER__/style/style480.css?t=0.2" rel="stylesheet" type="text/css"/>
+<link href="__CUSTOMER__/style/style320.css?t=0.2" rel="stylesheet" type="text/css"/>
 
 
 <script src="__CUSTOMER__/js/jquery-1.js"></script>
@@ -27,9 +27,8 @@
 <script src="__JS__/indexTuo.js"></script>
 </head>
 <body>
-
 <!--content-->
-<div class="wcenter0">
+<div class="wcenter0" >
  <div class="wcenter01">
    <div class="bin3">
    
@@ -79,10 +78,8 @@
   <!-- <div class="wlist2"><button type="button" onclick="return orderNext();">确定下单</button></div> -->
 <script>
 $(".sex1").click(function(){
-
 	$(this).children('span').addClass('on');
 	$(this).siblings().children('span').removeClass('on');
-
 });
 
 $("#gan1").click(function(){
@@ -145,22 +142,43 @@ function closediv(){
    <div class="area2">
      <div class="area21">
 	 
-	 <ul id="chufadi_id" style="display: none;">	
-		 <foreach name="pro" item="vo">
-			<li data-id="1" onclick="getCityz('{$vo.area_id}','S','{$vo.area_name}')">{$vo.area_name}</li>
-		 </foreach>
+	 <ul id="chufadi_id" class="list" style="display: none;">
+		 <section>
+			 <foreach name="pro" item="v" key="k">
+				 <dl>
+					 <dt id="{$k}">{$k}</dt>
+					 <foreach name="v" item="vo">
+						 <dd data-link="{$k}" data-id="1" onclick="getCityz('{$vo.area_id}','S','{$vo.area_name}')">{$vo.area_name}</dd>
+					 </foreach>
+				 </dl>
+			 </foreach>
+		 </section>
+		 <nav id="navBar">
+			 <foreach name="pro" item="vv" key="k">
+			 	<a href="#{$k}">{$k}</a>
+			 </foreach>
+		 </nav>
 	 </ul>
 	 
-	 <ul id="mudidi_id" style="display: none;">	
-		 <foreach name="pro" item="vo">
-			<li data-id="1" onclick="getCityz('{$vo.area_id}','E','{$vo.area_name}')">{$vo.area_name}</li>
-		 </foreach>
+	 <ul id="mudidi_id" class="list" style="display: none;">
+		 <section>
+			 <foreach name="pro" item="v" key="k">
+				 <dl>
+					 <dt id="{$k}{$k}">{$k}</dt>
+					 <foreach name="v" item="vo">
+						 <dd data-link="{$k}" data-id="1" onclick="getCityz('{$vo.area_id}','E','{$vo.area_name}')">{$vo.area_name}</dd>
+					 </foreach>
+				 </dl>
+			 </foreach>
+		 </section>
+		 <nav id="navBar">
+			 <foreach name="pro" item="vv" key="k">
+				 <a href="#{$k}{$k}">{$k}</a>
+			 </foreach>
+		 </nav>
 	 </ul>
 	 
-	 <ul id="pinpai_id" style="display: none;">	
-		 <foreach name="brand" item="vo">
-			<li data-id="1" onclick="getCityz('{$vo.cxjj_id}','M','{$vo.cxjj_brand}')">{$vo.cxjj_brand}</li>
-		 </foreach>
+	 <ul id="pinpai_id" style="display: none;">
 	 </ul>
 	 </div>
      
@@ -199,7 +217,11 @@ function closediv(){
  <!-- <div class="area3"><button type="button" onclick="orderNext();">确定</button></div> -->
 
 </div>
+<script src='__CUSTOMER__/js/zepto.min.js' type="text/javascript"></script>
+<script src="__CUSTOMER__/js/script.js" type="text/javascript"></script>
 <script>
+    $('#chufadi_id').myList();
+    $('#mudidi_id').myList();
 //下单第二步
 function orderNext(){
 	var chufadiname = $("#chufa").val();//出发地
