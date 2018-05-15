@@ -156,39 +156,15 @@ function closediv(){
      <div class="area21">
 	 
 	 <ul id="chufadi_id" class="zmlist" style="display: none;">
-		 <section>
-			 <foreach name="pro" item="v" key="k">
-				 <dl>
-					 <dt id="{$k}">{$k}</dt>
-					 <foreach name="v" item="vo">
-						 <dd data-link="{$k}" data-id="1" onclick="getCityz('{$vo.area_id}','S','{$vo.area_name}')">{$vo.area_name}</dd>
-					 </foreach>
-				 </dl>
-			 </foreach>
-		 </section>
-		 <nav id="zmnavBar">
-			 <foreach name="pro" item="vv" key="k">
-			 	<a href="#{$k}">{$k}</a>
-			 </foreach>
-		 </nav>
+		 <foreach name="pro" item="vo">
+			 <li data-id="1" onclick="getCityz('{$vo.area_id}','S','{$vo.area_name}')">{$vo.area_name}</li>
+		 </foreach>
 	 </ul>
 	 
 	 <ul id="mudidi_id" class="zmlist" style="display: none;">
-		 <section>
-			 <foreach name="pro" item="v" key="k">
-				 <dl>
-					 <dt id="{$k}{$k}">{$k}</dt>
-					 <foreach name="v" item="vo">
-						 <dd data-link="{$k}" data-id="1" onclick="getCityz('{$vo.area_id}','E','{$vo.area_name}')">{$vo.area_name}</dd>
-					 </foreach>
-				 </dl>
-			 </foreach>
-		 </section>
-		 <nav id="zmnavBar">
-			 <foreach name="pro" item="vv" key="k">
-				 <a href="#{$k}{$k}">{$k}</a>
-			 </foreach>
-		 </nav>
+		 <foreach name="pro" item="vo">
+			 <li data-id="1" onclick="getCityz('{$vo.area_id}','E','{$vo.area_name}')">{$vo.area_name}</li>
+		 </foreach>
 	 </ul>
 	 
 	 <ul id="pinpai_id" style="display: none;">

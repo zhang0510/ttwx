@@ -102,21 +102,9 @@
 	<div class="area2">
 		<div class="area21" style="width: 49%">
 			<ul id="pinpai_id" class="zmlist" style="display: none;">
-				<section>
-					<foreach name="brand" item="v" key="k">
-						<dl>
-							<dt id="{$k}">{$k}</dt>
-							<foreach name="v" item="vo">
-								<dd data-link="{$k}" data-id="1" onclick="getCityz('{$vo.cxjj_id}','M','{$vo.cxjj_brand}')">{$vo.cxjj_brand}</dd>
+							<foreach name="brand" item="vo">
+								<dd data-link="{$k}" onclick="getCityz('{$vo.cxjj_id}','M','{$vo.cxjj_brand}')">{$vo.cxjj_brand}</dd>
 							</foreach>
-						</dl>
-					</foreach>
-				</section>
-				<nav id="zmnavBar">
-					<foreach name="brand" item="vv" key="k">
-						<a href="#{$k}">{$k}</a>
-					</foreach>
-				</nav>
 			</ul>
 		</div>
 
