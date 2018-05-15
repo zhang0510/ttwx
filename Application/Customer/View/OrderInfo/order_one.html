@@ -26,6 +26,19 @@
 <script src="__JS__/layer/layer.js"></script>
 <script src="__JS__/indexTuo.js"></script>
 </head>
+<style>
+	.zmlist{font-size: 26px;position: relative;height: 100%}
+	.zmlist>section{overflow-y: auto;height: 100%}
+	.zmlist>section>dl>dt{background: #f7f7f9;color: #999;height:40px;padding-left: 15px;}
+	.zmlist>section>dl>dd{font-size: 26px;color: #333;padding-left: 15px;position: relative;line-height: 60px;}
+	.zmlist>section>dl>dd:after{content:'';position: absolute;left: 0;bottom: 1px;width: 100%;height: 1px;background-color:#c8c7cc;transform:scaleY(.5);-webkit-transform:scaleY(.5);}
+	.zmlist>section>dl>dd:last-of-type:after{display: none;}
+	#zmnavBar{position: fixed;width:26px;height: 100%;right: 0;top:10%}
+	#zmnavBar.active{background:rgba(211,211,211,.6);}
+	#zmnavBar>a{text-align: center;display: block;text-decoration:none;height: 3.9%;line-height:100%;color: #333;font-size: 18px;}
+	#prompt{position: fixed;left: 50%;top:50%;margin:-30px 0 0 -30px;width: 60px;height: 60px;text-align: center;line-height: 60px;font-size: 30px;color: #fff;background: rgba(0,0,0,0.5);z-index: 10;display: none;border-radius:4px;}
+	#prompt.active{display:block;}
+</style>
 <body>
 <!--content-->
 <div class="wcenter0" >
