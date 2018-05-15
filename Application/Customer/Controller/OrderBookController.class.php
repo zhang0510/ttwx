@@ -60,13 +60,13 @@ class OrderBookController extends BaseController {
 	  */
 	 function mobileBooking(){
 	 	$ret = session("userdata");
-	 	$pro = get_province();
-         /*$pro = array();
+	 	$proc = get_province();
+         $pro = array();
         foreach($proc as &$v){
             $szm = $this->getFirstCharter($v['area_name']);
             $pro[$szm][] = $v;
         }
-        ksort($pro);*/
+        ksort($pro);
 	 	$brand = get_brand();
 	 	$this->assign("member",$ret);
 	 	$this->assign("pro",$pro);
@@ -146,15 +146,15 @@ class OrderBookController extends BaseController {
 	        $code = md5($userInfo['user_code']);
 	        S($code,$data);
 	        //dump($data);die();
-            $brand = get_brand();
-            /*foreach($brandc as &$v){
+            $brandc = get_brand();
+            foreach($brandc as &$v){
                 $szm = $this->getFirstCharter($v['cxjj_brand']);
                 if($v['cxjj_brand'] == '讴歌'){
                     $szm = 'O';
                 }
                 $brand[$szm][] = $v;
             }
-            ksort($brand);*/
+            ksort($brand);
             $this->assign("brand",$brand);
 	        $this->assign("data",$data);
 	        $this->assign("name1",explode("-",$data['chufa_name'])[1]);

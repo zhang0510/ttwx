@@ -1363,7 +1363,7 @@ h2.xinh2{color:#B1B1B1;font-size:20px;margin:15px 0;}
 	.mlista2  dl dt.on{font-size:18px;color:#35B36C;background:url(../images/quan11.png) no-repeat 0px center;text-indent:40px;font-weight:400;}
 	.bkl1{height:17px;background:#fff;width:30px;position:absolute;left:0px;top:0px;}
 	.bkl2{height:17px;background:#fff;width:30px;position:absolute;left:0px;bottom:0px;}
-}
+
 
 .fwlcdiv{width:95%;margin:auto;padding-top: 30px;padding-bottom: 50px;}
 .lcimg{width: 100%;}
@@ -1386,3 +1386,5 @@ h2.xinh2{color:#B1B1B1;font-size:20px;margin:15px 0;}
 #zmnavBar>a{text-align: center;display: block;text-decoration:none;height: 3.9%;line-height:100%;color: #333;font-size: 18px;}
 #prompt{position: fixed;left: 50%;top:50%;margin:-30px 0 0 -30px;width: 60px;height: 60px;text-align: center;line-height: 60px;font-size: 30px;color: #fff;background: rgba(0,0,0,0.5);z-index: 10;display: none;border-radius:4px;}
 #prompt.active{display:block;}
+
+}
