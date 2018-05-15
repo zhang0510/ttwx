@@ -38,7 +38,13 @@ class OrderBookController extends BaseController {
 			print_log("data:".json_encode($ret));
 			if(count($ret)>0){
 				session("userdata",$ret);
-				$pro = get_province();
+				$proc = get_province();
+                $pro = array();
+                foreach($proc as &$v){
+                    $szm = $this->getFirstCharter($v['area_name']);
+                    $pro[$szm][] = $v;
+                }
+                ksort($pro);
 				$brand = get_brand();
 				$this->assign("userInfo",$ress);
 				$this->assign("member",$ret);
