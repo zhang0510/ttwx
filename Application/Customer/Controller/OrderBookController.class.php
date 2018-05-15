@@ -196,7 +196,17 @@ class OrderBookController extends BaseController {
 	        $linkList = $gbObj->getGroupAddCommon($userInfo['user_code']);//当前用户的常用联系人
 	        //dump($data);die();
 	        S($code,$data);
+            $brandc = get_brand();
+            foreach($brandc as &$v){
+                $szm = $this->getFirstCharter($v['cxjj_brand']);
+                if($v['cxjj_brand'] == '讴歌'){
+                    $szm = 'O';
+                }
+                $brand[$szm][] = $v;
+            }
+            ksort($brand);
 	        $this->assign("data",$data);
+	        $this->assign("brand",$brand);
 	        $this->assign("linkListsize",count($linkList));
 	        $this->assign("linkList",$linkList);//常用联系人
 	        $this->display("OrderInfo:order_three");
@@ -227,6 +237,16 @@ class OrderBookController extends BaseController {
 	 	$linkList = $gbObj->getGroupAddCommon($userInfo['user_code']);//当前用户的常用联系人
 	 	//dump($data);die();
 	 	S($code,$data);
+         $brandc = get_brand();
+         foreach($brandc as &$v){
+             $szm = $this->getFirstCharter($v['cxjj_brand']);
+             if($v['cxjj_brand'] == '讴歌'){
+                 $szm = 'O';
+             }
+             $brand[$szm][] = $v;
+         }
+         ksort($brand);
+         $this->assign("brand",$brand);
 	 	$this->assign("data",$data);
 	 	$this->assign("linkListsize",count($linkList));
 	 	$this->assign("linkList",$linkList);//常用联系人
@@ -256,7 +276,9 @@ class OrderBookController extends BaseController {
 	 	    $gather_car_address = I("gather_car_address");//收件地址
 	 	    
 	 	    $remark = I("remark");//备注
-	 	     
+            $pinpai = I("pinpai_name");//品牌
+            $data['order_info_brand'] = explode('-',$pinpai)[0];
+            $data['order_info_type'] = explode('-',$pinpai)[1];
 	 	    $data['order_info_tclxr'] = $send_name.",".$send_tel.",".$send_code;
 	 	    $data['order_info_sclxr'] = $gather_name.",".$gather_tel.",".$gather_code;
 	 	    $data['order_info_carmark'] = $car_plate_num;
@@ -304,7 +326,9 @@ class OrderBookController extends BaseController {
 	 	    $gather_car_address = I("gather_car_address");//收件地址
 	 	     
 	 	    $remark = I("remark");//备注
-	 	    
+            $pinpai = I("pinpai_name");//品牌
+            $data['order_info_brand'] = explode('-',$pinpai)[0];
+            $data['order_info_type'] = explode('-',$pinpai)[1];
 	 	    $data['order_info_tclxr'] = $send_name.",".$send_tel.",".$send_code;
 	 	    $data['order_info_sclxr'] = $gather_name.",".$gather_tel.",".$gather_code;
 	 	    $data['order_info_carmark'] = $car_plate_num;

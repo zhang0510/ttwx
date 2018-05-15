@@ -128,7 +128,7 @@ h2{margin:0px;}
 .area1 h2{height:100%;text-align:center;background:#000;font-size:28px;color:#fff;line-height:100%;display:table-cell;vertical-align:middle;}
 .area3 button{height:100%;text-align:center;background:#27AD61;font-size:28px;color:#fff;display:block;border:0px;width:100%;}
 .area21{height:100%;float:left;width:33.3%;overflow:auto;}
-.area22{height:10%;float:left;width:33.3%;overflow-y:auto;}
+.area22{height:10%;float:left;width:33.3%;overflow-y:auto;background: #fcfcfc;}
 .area222{height:100%;float:left;width:33.3%;overflow:auto;}
 .area23{height:100%;float:left;width:33.3%;overflow:auto;}
 .area21 ul li{line-height:40px;text-indent:20px;border-bottom:1px solid #ddd;}
