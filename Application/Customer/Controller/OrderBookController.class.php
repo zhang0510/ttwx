@@ -206,7 +206,7 @@ class OrderBookController extends BaseController {
             }
             ksort($brand);
 	        $this->assign("data",$data);
-	        $this->assign("code",$code);
+	        $this->assign("code",$userInfo['user_code']);
 	        $this->assign("brand",$brand);
 	        $this->assign("linkListsize",count($linkList));
 	        $this->assign("linkList",$linkList);//常用联系人
@@ -248,6 +248,7 @@ class OrderBookController extends BaseController {
          }
          ksort($brand);
          $this->assign("brand",$brand);
+         $this->assign("code",$userInfo['user_code']);
 	 	$this->assign("data",$data);
 	 	$this->assign("linkListsize",count($linkList));
 	 	$this->assign("linkList",$linkList);//常用联系人
