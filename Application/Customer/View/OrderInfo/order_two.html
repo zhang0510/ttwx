@@ -38,7 +38,7 @@
 			<div class="pp8">
 				<div class="wxdd3">
 					<div class="bin1a" style="padding: 0px 0px;">
-						<dl style="border-bottom: 0px"><dt>品牌车型 &nbsp;</dt><dd id="gan111"><input type="text" value="{$data.order_info_brand}--{$data.order_info_type}" readonly="readonly" id="pinpainame" /><a class="gan1 gan111" ></a></dd></dl>
+						<dl style="border-bottom: 0px"><dt>品牌车型 &nbsp;</dt><dd id="gan111"><input type="text" value="" readonly="readonly" id="pinpainame" /><a class="gan1 gan111" ></a></dd></dl>
 						<input type="hidden" class="txt1a inko" id="type_cityarea_id"/>
 					</div>
 				</div>
@@ -194,6 +194,11 @@ function formsubmit(){
 	var order_info_bxd = $("#order_info_bxd").val();
 	var order_info_price = $("#order_info_price").val();
 	var car_baojia = $("#car_baojia").val();
+    var pinpainame = $("#pinpainame").val();
+    if(pinpainame == ''){
+        layer.msg("请选择车型!");
+        return false;
+    }
 	if(order_info_price.length >5){
 		$('#order_info_bxd').val(0);
 		$('#baoprice').html(0);

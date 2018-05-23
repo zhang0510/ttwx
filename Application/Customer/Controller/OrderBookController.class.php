@@ -174,8 +174,8 @@ class OrderBookController extends BaseController {
 	        $data['flag'] = $flag;
 	        $data['product_type'] = I("product_type");
 	        $data['order_way'] = 'S';
-	        $data['order_info_brand'] = explode('-',$pinpai)[0];
-	        $data['order_info_type'] = explode('-',$pinpai)[1];
+	        $data['order_info_brand'] = '';
+	        $data['order_info_type'] = '';
 	        $data['totalz'] = I("totalz");
 	        $data['order_info_c_car'] = I("lineprice");
 	        $data['order_info_t_car'] = I("tiz");
@@ -206,6 +206,7 @@ class OrderBookController extends BaseController {
             }
             ksort($brand);
 	        $this->assign("data",$data);
+	        $this->assign("code",$code);
 	        $this->assign("brand",$brand);
 	        $this->assign("linkListsize",count($linkList));
 	        $this->assign("linkList",$linkList);//常用联系人

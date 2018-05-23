@@ -70,6 +70,11 @@ function formSbumitFun(){
 	var gather_code = $("#gather_code_txt").val().trim();//收车人证件号
 	var gather_car_address = $("#gather_car_address").val();//收车详细地址
 	var remark = $("#remark_id").val().trim();//备注
+    var pinpainame = $("#pinpainame").val();
+    if(pinpainame == ''){
+        layer.msg("请选择车型!");
+        return false;
+    }
 	if(carmark==""){
 		layer.msg("车牌号不能为空");
 		return false;
@@ -259,7 +264,14 @@ function formSbumitFun(){
 					<div class="rr32">
 				<div class="rr32ad5">
 					<div class="bin1a" style="padding: 0px 0px;">
-						<dl style="border-bottom: 0px"><dt>品牌车型 &nbsp;</dt><dd id="gan111"><input type="text" value="{$data.order_info_brand}--{$data.order_info_type}" readonly="readonly" id="pinpainame" /><a class="gan1 gan111" ></a></dd></dl>
+						<dl style="border-bottom: 0px"><dt>品牌车型 &nbsp;</dt><dd id="gan111">
+							<if condition="($data.order_info_brand eq '')">
+								<input type="text" value="" readonly="readonly" id="pinpainame" />
+							<else />
+								<input type="text" value="{$data.order_info_brand}--{$data.order_info_type}" readonly="readonly" id="pinpainame" />
+							</if>
+								<a class="gan1 gan111" ></a>
+						</dd></dl>
 						<input type="hidden" class="txt1a inko" id="type_cityarea_id"/>
 					</div>
 				</div>
@@ -288,7 +300,13 @@ function formSbumitFun(){
 					<span  class="hhhh" onclick='openF("R",this);' id="shoucheren_changyong_id">常用联系人</span>
 				</h2>
 				<div class="rr41a">
-					<dl><dt><span>*</span>联系人姓名：</dt><dd><input type="text" class="rry1" placeholder=""  id="gather_name_txt"></dd></dl>
+					<dl>
+						<dt><span>*</span>联系人姓名：</dt>
+						<dd  class="ee81">
+							<input type="text" class="rry1" placeholder=""  id="gather_name_txt">
+							<span  class="swcy" style="background: #33B16A;padding: 12px 10px;border-radius: 5px;color: #fff;font-size: 28px" onclick='swcy();'>设为常用</span>
+						</dd>
+					</dl>
 					<dl><dt><span>*</span>联系人电话：</dt><dd><input type="text" class="rry1" placeholder="" id="gather_tel_txt"></dd></dl>
 					<dl><dt><span>*</span>	身份证号码：</dt><dd><input type="text" style="width:50%;" class="rry1"  id="gather_code_txt" placeholder=""></dd></dl>
 				</div>
@@ -298,7 +316,8 @@ function formSbumitFun(){
 					<dl><dt><span>*</span>收车详细地址：</dt><dd><input type="text"  style="width:50%;" class="rry1"  id="gather_car_address"></dd></dl>
 				</div>
 			</div>
-		</div>  
+		</div>
+	   <input type="hidden" id="usercode" value="{{$code}}">
  		<div class="ee81"><button type="button" onclick="return formSbumitFun();">确定发车</button></div>
    </div>
  </div>
@@ -358,6 +377,33 @@ function formSbumitFun(){
 	</div>
 </div>
 <script>
+function swcy(){
+    link_name = $("#gather_name_txt").val();
+    link_tel = $("#gather_tel_txt").val();
+    link_num = $("#gather_code_txt").val();
+    usercode = $("#usercode").val();
+    if(link_name == ''){
+        layer.msg('姓名不能为空');
+        return false;
+	}
+    if(link_tel == ''){
+        layer.msg('电话不能为空');
+        return false;
+    }
+    if(link_num == ''){
+        layer.msg('身份证不能为空');
+        return false;
+    }
+    $.post("/Customer/Worklwt/linkManInsert",{name:link_name,tel:link_tel,idcode:link_num,user_code:usercode},function(data){
+        if(data){
+            layer.msg('设置成功');
+            return false;
+        }else{
+            layer.msg('设置失败');
+            return false;
+        }
+    },'json');
+}
 $("#gan111").click(function(){
 	$("#signmark").val("M");
 	$(".area22").html('');
