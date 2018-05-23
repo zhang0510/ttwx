@@ -332,6 +332,7 @@ class WorklwtController extends IndexController {
         $this -> assign('cList',$myList['list']);
         $this -> assign('flag',$myList['flag']);
         $this -> assign("code",$code);
+        $this -> assign("count",count($myList['list']));
         //$this -> assign('num',$myList['number']);
         $this->display("MyCoupon:my_coupon");
     }

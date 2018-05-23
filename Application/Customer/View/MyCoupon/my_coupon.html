@@ -41,20 +41,31 @@
 <div class="order_main container">
   <div class="order_list">
     <ul id="gerger">
-    <foreach name="cList" item="vo" key="k">
-	 <li>
-	  <div class="yh0">
-	   <div class="yh01"><img src="__FRONT__/images/rr8.png"></div>
-	   <div class="yh02">
-	   	<p>使用状态：{$vo.msg}
-	    </p>
-		<p>面值：<span>{$vo['fav_price']/100}元</span></p>
-		<p>期限：{$vo.fav_startime} - {$vo.fav_endtime}</p>
-		<p>优惠码：{$vo.fav_code}</p>
-	   </div>
-	  </div>
-	 </li>
-	 </foreach>
+		<if condition="$count eq 0">
+			<li>
+				<div class="yh0">
+					<div class="yh01"><img src="__FRONT__/images/rr8.png"></div>
+					<div class="yh02">
+						<center><p style="font-size: 24px">暂无优惠券</p></center>
+					</div>
+				</div>
+			</li>
+		<else/>
+			<foreach name="cList" item="vo" key="k">
+				<li>
+					<div class="yh0">
+						<div class="yh01"><img src="__FRONT__/images/rr8.png"></div>
+						<div class="yh02">
+							<p>使用状态：{$vo.msg}
+							</p>
+							<p>面值：<span>{$vo['fav_price']/100}元</span></p>
+							<p>期限：{$vo.fav_startime} - {$vo.fav_endtime}</p>
+							<p>优惠码：{$vo.fav_code}</p>
+						</div>
+					</div>
+				</li>
+			</foreach>
+		</if>
 	</ul>
   </div>
 	
