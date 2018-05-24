@@ -248,7 +248,7 @@ class WorktwoModel extends BaseModel {
         $map['fav_endtime'] = array('gt',$now);
         //查询
         $list = $obj -> where($map) -> find();
-        if($list){
+        if(!$list){
             $map['fav_startime'] = array('eq','0000-00-00 00:00:00');
             $map['fav_endtime'] = array('eq','0000-00-00 00:00:00');
             $list = $obj -> where($map) -> find();
