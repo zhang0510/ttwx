@@ -238,7 +238,9 @@ class WorktwoModel extends BaseModel {
         //实例化数据库
         $obj = M('favorable');
         $now = date('Y-m-d H:i:s',time());
+        $session_User = jiema(session('userData'));
         //查询条件
+        $map['user_code'] = array('eq',$session_User['tel']);
         $map['fav_code'] = array('eq',$code);
         $map['fav_status'] = array('eq','N');
         $map['fav_flag'] = array('eq','Y');
@@ -246,6 +248,11 @@ class WorktwoModel extends BaseModel {
         $map['fav_endtime'] = array('gt',$now);
         //查询
         $list = $obj -> where($map) -> find();
+        if($list){
+            $map['fav_startime'] = array('eq','0000-00-00 00:00:00');
+            $map['fav_endtime'] = array('eq','0000-00-00 00:00:00');
+            $list = $obj -> where($map) -> find();
+        }
         if($list){
             $msg['flag'] = true;
             $msg['price'] = $list['fav_price']/100;
