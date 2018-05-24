@@ -316,7 +316,13 @@ class WorklwtController extends IndexController {
         $time = time();
         
         for($i=0;$i<count($myList['list']);$i++){
-            if(strtotime($myList['list'][$i]['fav_startime']) <= $time && strtotime($myList['list'][$i]['fav_endtime']) >$time){
+            if($myList['list'][$i]['fav_startime'] == '0000-00-00 00:00:00' && $myList['list'][$i]['fav_endtime'] =='0000-00-00 00:00:00'){
+                if($myList['list'][$i]['fav_status'] == 'Y'){
+                    $myList['list'][$i]['msg'] = "已用";
+                }else{
+                    $myList['list'][$i]['msg'] = "未用";
+                }
+            }elseif(strtotime($myList['list'][$i]['fav_startime']) <= $time && strtotime($myList['list'][$i]['fav_endtime']) >$time){
                 if($myList['list'][$i]['fav_status'] == 'Y'){
                     $myList['list'][$i]['msg'] = "已用";
                 }else{
@@ -325,8 +331,13 @@ class WorklwtController extends IndexController {
             }else{
                 $myList['list'][$i]['msg'] = "已作废";
             }
-            $myList['list'][$i]['fav_startime'] = str_replace("-",".",substr($myList['list'][$i]['fav_startime'],0,10));
-            $myList['list'][$i]['fav_endtime'] = str_replace("-",".",substr($myList['list'][$i]['fav_endtime'],0,10));
+            if($myList['list'][$i]['fav_startime'] == '0000-00-00 00:00:00' && $myList['list'][$i]['fav_endtime'] =='0000-00-00 00:00:00'){
+                $myList['list'][$i]['fav_startime'] = '';
+                $myList['list'][$i]['fav_endtime'] = "长期有效";
+            }else{
+                $myList['list'][$i]['fav_startime'] = str_replace("-",".",substr($myList['list'][$i]['fav_startime'],0,10));
+                $myList['list'][$i]['fav_endtime'] = str_replace("-",".",substr($myList['list'][$i]['fav_endtime'],0,10));
+            }
         }
         //$this -> assign('show',$myList['show']);
         $this -> assign('cList',$myList['list']);
