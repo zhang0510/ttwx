@@ -238,7 +238,7 @@ class WorktwoModel extends BaseModel {
         //实例化数据库
         $obj = M('favorable');
         $now = date('Y-m-d H:i:s',time());
-        $session_User = jiema(session('userData'));
+        $session_User = session('userdata');
         //查询条件
         $map['user_code'] = array('eq',$session_User['tel']);
         $map['fav_code'] = array('eq',$code);
