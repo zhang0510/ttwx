@@ -552,7 +552,6 @@ HTML;
 </table>
 HTML;
             }
-
             $this->export_pdf($html_pdf,$result['time'][0].$result['time'][1].$result['time'][2],'T',$status);
         }
     }
@@ -598,10 +597,10 @@ HTML;
         $pdf->SetLineWidth(0.3);
         $pdf->SetFont('droidsansfallback', '',9);
         if($mark=="K"&&$status==""){
-            $pdf->Image('Public/Front/images/gzss.png', 20, 85, 40, 40, 'png');
+            //$pdf->Image('Public/Front/images/gzss.png', 20, 85, 40, 40, 'png');
         }else if($mark=="T"&&$status==""){
             $pdf->Image('Public/Customer/images/tuologo.png', 15, 0, 0, 0, 'png');
-            $pdf->Image('Public/Front/images/gzss.png', 150, 130, 40, 40, 'png');
+            //$pdf->Image('Public/Front/images/gzss.png', 150, 130, 40, 40, 'png');
         }
         $pdf->writeHTML($data,true, false, true, false, '');
         $showType= "I";//PDF输出的方式。I，在浏览器中打开；D，以文件形式下载；F，保存到服务器中；S，以字符串形式输出；E：以邮件的附件输出。
