@@ -126,7 +126,7 @@ jQuery.extend({
 	//验证手机号
 	check_Mobile:function(val){
 		//var mobile = /^((\+?86)|(\(\+86\)))?(13[012356789][0-9]{8}|15[012356789][0-9]{8}|18[02356789][0-9]{8}|147[0-9]{8}|1349[0-9]{7})$/;
-		var mobile =/^0?1[3|4|5|7|8][0-9]\d{8}$/;
+		var mobile =/^0?1[3|4|5|7|8|9][0-9]\d{8}$/;
 		if(mobile.test(val) == false){
 			return false;
 		}else{
