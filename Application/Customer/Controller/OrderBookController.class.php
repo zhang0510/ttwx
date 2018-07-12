@@ -358,7 +358,8 @@ class OrderBookController extends BaseController {
 	     $type = I("type");
 	     $sm_star = I("str");
 	     $sm_end = $sm_star.",".$id;
-	     $msg['prices'] = ($masObj->getsmPrice($sm_star,$sm_end)['sm_platelets_price'])/100;
+	     //$msg['prices'] = ($masObj->getsmPrice($sm_star,$sm_end)['sm_platelets_price'])/100;
+	     $msg['prices'] = 0;
 	     //print_log("----------------------:".$type);
 	     if($type=='Y'){
 	         $msg['flag'] = true;
